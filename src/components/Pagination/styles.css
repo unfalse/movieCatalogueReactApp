@@ -1,0 +1,18 @@
+.pagination {
+	text-align: center;
+}
+
+.active {
+	color: blue;
+	cursor: pointer;
+}
+
+.inactive {
+	color: gray;
+	cursor: pointer;
+}
+
+.button {
+	border: 1px solid black;
+	margin: 2px;
+}

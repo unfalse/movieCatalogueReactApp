@@ -1,0 +1,59 @@
+.content__movie-list {
+}
+
+.content__movie-short-info-poster, img {
+	height: 250px;
+	width: 170px;
+}
+
+.content__movie-short-info-title {
+    font-size: 22pt;
+    font-weight: 600;
+    font-family: Courier New;
+	margin: 5px 0px;
+}
+
+.content__movie-short-info-genres span {
+    border: 1px solid blue;
+    border-radius: 6px;
+	color: white;
+	background-color: blue;
+	font-weight: 600;
+	padding: 5px;   
+	margin-right: 5px;
+}
+
+.content__movie-short-info-year {
+    font-family: Arial;
+    text-decoration: underline;
+	margin: 8px 0px;
+}
+
+.content__movie-short-info-director {
+    font-size: 0.8rem;
+}
+
+.content__movie-short-info-actors {
+    font-size: 0.8rem;
+}
+
+.content__movie-short-info-plot {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 600px;
+}
+
+.content__movie-short-info-runtime {
+	font-size: 0.8rem;
+	font-family: Arial;
+	font-style: italic;
+}
+
+.content__movie-short-info {
+	display: flex;
+	padding: 20px;
+}
+
+.content__movie-short-info-text-part {
+	padding: 20px;
+}
