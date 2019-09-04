@@ -13,6 +13,7 @@ export const Pagination = ({
 	const goBackwards = () => void setPageNumber(pageNumber - 1);
 	const goToFirst = () => void setPageNumber(0);
 	const goToLast = () => void setPageNumber(pagesCount);
+
 	const PageControls = () => {
 		return (
 			<div>

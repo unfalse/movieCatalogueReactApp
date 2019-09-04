@@ -3,11 +3,15 @@ import React, { useEffect, useState } from "react";
 import { fetchMovies } from "../../apis";
 import { MovieList } from "../MovieList";
 import { Pagination } from "../Pagination";
+import { Filter } from '../Filter';
 
 const ITEMS_PER_PAGE = 3;
 
 const getQueryParams = () => {
-
+	const { search } = window.location;
+	const params = new URLSearchParams(search);
+	const foo = params.get('foo');
+	console.log([search, params, foo]);
 };
 
 // Returns an array of movies chunks divided by pages
@@ -36,6 +40,7 @@ const setSearch = (items) => {
 
 const prepareData = (items) => {
 	getQueryParams();
+	setFilter(items);
 	return preparePagination(items);
 }
 
@@ -53,17 +58,7 @@ export const Home = () => {
                 <div>Movies Catalogue App</div>
                 <hr />
 
-                <div>
-                    Filter by
-                    <span>
-                        <select>
-                            <option value="genre">genre</option>
-                        </select>
-                        <select>
-                            <option value="horror">Horror</option>
-                        </select>
-                    </span>
-                </div>
+				<Filter genres={['horror', 'thriller', 'drama', 'detective', 'action', 'criminal']}/>
 
                 <div>
                     Search by Title
