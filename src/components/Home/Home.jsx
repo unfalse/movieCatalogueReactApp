@@ -10,11 +10,12 @@ const ITEMS_PER_PAGE = 3;
 const getQueryParams = () => {
 	const { search } = window.location;
 	const params = new URLSearchParams(search);
-	const foo = params.get('foo');
-	console.log([search, params, foo]);
+	const filterParam = params.get('filter');
+	return { filterParam: filterParam || 'None' };
 };
 
 // Returns an array of movies chunks divided by pages
+// TODO: fix a bug with the last empty page!
 const preparePagination = (items) => {
     const pagesCount = Math.floor(items.length / ITEMS_PER_PAGE);
 	let pagedMovies = [];
@@ -30,8 +31,28 @@ const preparePagination = (items) => {
 	return pagedMovies;
 }
 
-const setFilter = (items) => {
-	return items;
+const getGenres = (items) => {
+	let genres = [];
+	items.forEach(item => {
+		item.genres.forEach(genre => {
+			if (genres.indexOf(genre) < 0) {
+				genres.push(genre);
+			}
+		});
+	});
+	return [].concat(['None'], genres);
+}
+
+const setFilter = (items, filterParam = 'None') => {
+	let filteredItems = [];
+	console.log(filterParam);
+	if (filterParam === 'None') return items;
+	items.forEach(item => {
+		if (item.genres.indexOf(filterParam) >= 0) {
+			filteredItems.push(item);
+		}
+	});
+	return filteredItems;
 }
 
 const setSearch = (items) => {
@@ -39,18 +60,32 @@ const setSearch = (items) => {
 }
 
 const prepareData = (items) => {
-	getQueryParams();
-	setFilter(items);
-	return preparePagination(items);
+	const { filterParam } = getQueryParams();
+	const paginatedMovies = preparePagination( setFilter(items, filterParam) );
+	console.log(paginatedMovies);
+	return {
+		paginatedMovies
+	};
 }
 
 export const Home = () => {
 	const [movies, setMovies] = useState([]);
+	const [genres, setGenres] = useState([]);
 	useEffect(() => {
 		fetchMovies().then(res => {
-			setMovies( prepareData(res.movies) );
+			console.log(res.movies);
+			const { paginatedMovies } = prepareData(res.movies);
+			console.log(paginatedMovies);
+			const genres = getGenres(res.movies);
+			setMovies(paginatedMovies);
+			setGenres(genres);
 		});
 	}, []);
+
+	const onFilter = () => {
+		const { paginatedMovies } = prepareData(movies);
+		setMovies(paginatedMovies);
+	}
 
     return (
         <div>
@@ -58,7 +93,7 @@ export const Home = () => {
                 <div>Movies Catalogue App</div>
                 <hr />
 
-				<Filter genres={['horror', 'thriller', 'drama', 'detective', 'action', 'criminal']}/>
+				<Filter genres={genres} onFilter={onFilter}/>
 
                 <div>
                     Search by Title

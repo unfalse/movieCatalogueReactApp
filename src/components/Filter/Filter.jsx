@@ -1,8 +1,9 @@
 import React from "react";
 
-const Filter = ({ genres }) => {
+const Filter = ({ genres, onFilter }) => {
 	const onOptionClick = (e) => {
-		console.log(e.target.value);
+		window.history.pushState({}, '', `${window.origin}/?filter=${e.target.value}`);
+		onFilter();
 	}
 	return (
 		<div>
