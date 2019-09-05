@@ -45,9 +45,9 @@ const getGenres = (items) => {
 
 const setFilter = (items, filterParam = 'None') => {
 	let filteredItems = [];
-	console.log(filterParam);
 	if (filterParam === 'None') return items;
 	items.forEach(item => {
+		if (!item.genres) console.log(item);
 		if (item.genres.indexOf(filterParam) >= 0) {
 			filteredItems.push(item);
 		}
@@ -62,29 +62,40 @@ const setSearch = (items) => {
 const prepareData = (items) => {
 	const { filterParam } = getQueryParams();
 	const paginatedMovies = preparePagination( setFilter(items, filterParam) );
-	console.log(paginatedMovies);
 	return {
-		paginatedMovies
+		paginatedMovies,
+		filterParam
 	};
 }
 
+// TODO: this seems like a bad decision. I should move some pagination logic into Pagination component
+const paginatedMoviesToArray = movies => {
+	const res = movies.reduce((moviesArr, paginatedData) => moviesArr.concat(paginatedData.moviesData), []);
+	return res;
+}
+
 export const Home = () => {
+	const [sourceMovies, setSourceMovies] = useState([]);
 	const [movies, setMovies] = useState([]);
 	const [genres, setGenres] = useState([]);
+	const [filterParamFromQuery, setFilterParam] = useState('None');
+
 	useEffect(() => {
 		fetchMovies().then(res => {
-			console.log(res.movies);
-			const { paginatedMovies } = prepareData(res.movies);
-			console.log(paginatedMovies);
+			setSourceMovies(res.movies);
+			const { paginatedMovies, filterParam } = prepareData(res.movies);
 			const genres = getGenres(res.movies);
 			setMovies(paginatedMovies);
 			setGenres(genres);
+			setFilterParam(filterParam);
 		});
 	}, []);
 
 	const onFilter = () => {
-		const { paginatedMovies } = prepareData(movies);
-		setMovies(paginatedMovies);
+		// const { paginatedMovies } = prepareData(paginatedMoviesToArray(movies));
+		const { paginatedMovies, filterParam } = prepareData(sourceMovies);
+		setMovies( paginatedMovies );
+		setFilterParam( filterParam );
 	}
 
     return (
@@ -93,7 +104,7 @@ export const Home = () => {
                 <div>Movies Catalogue App</div>
                 <hr />
 
-				<Filter genres={genres} onFilter={onFilter}/>
+				<Filter genres={genres} onFilter={onFilter} filterParam={filterParamFromQuery}/>
 
                 <div>
                     Search by Title
