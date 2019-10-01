@@ -1,23 +1,31 @@
-import React from "react";
+import React from 'react';
 
-const Filter = ({ genres, onFilter, filterParam }) => {
-	const onOptionClick = (e) => {
-		window.history.pushState({}, '', `${window.origin}/?filter=${e.target.value}`);
-		onFilter();
-	}
-	return (
-		<div>
-			Filter by
-			<span>
-				<select>
-					<option value="genre">genre</option>
-				</select>
-				<select onChange={onOptionClick} defaultValue={filterParam}>
-					{genres.map((g, i) => (<option key={i} value={g}>{g}</option>))}
-				</select>
-			</span>
-		</div>
-	);
-}
+import {getQueryParams} from '../../utils/url';
 
-export { Filter };
+const Filter = ({genres, onFilter, filterParam}) => {
+  const onOptionClick = e => {
+    const filterValue = e.target.value;
+    window.history.pushState({}, '', `${window.origin}/?filter=${filterValue}`);
+    onFilter();
+  };
+
+  return (
+    <div>
+      Filter by
+      <span>
+        <select>
+          <option value="genre">genre</option>
+        </select>
+        <select onChange={onOptionClick} defaultValue={filterParam}>
+          {genres.map((genre, genreIndex) => (
+            <option key={genreIndex} value={genre}>
+              {genre}
+            </option>
+          ))}
+        </select>
+      </span>
+    </div>
+  );
+};
+
+export {Filter};
