@@ -1,85 +1,139 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from 'react';
 
-import { fetchMovies } from "../../apis";
-import { MovieList } from "../MovieList";
-import { Pagination } from "../Pagination";
+import {fetchMovies} from '../../apis';
+import {MovieList} from '../MovieList';
+import {Pagination} from '../Pagination';
+import {Filter} from '../Filter';
+import {Search} from '../Search';
+import {getQueryParams} from '../../utils/url';
 
 const ITEMS_PER_PAGE = 3;
 
-const getQueryParams = () => {
-
+// Returns an array of movies divided by pages
+// TODO: fix a bug with the last empty page!
+const preparePagination = items => {
+  const pagesCount = Math.floor(items.length / ITEMS_PER_PAGE);
+  let pagedMovies = [];
+  let pageNumber = 0,
+    currentPagePosition = 0;
+  while (pageNumber <= pagesCount) {
+    pagedMovies.push({
+      pageNumber,
+      moviesData: items.slice(
+        currentPagePosition,
+        currentPagePosition + ITEMS_PER_PAGE,
+      ),
+    });
+    pageNumber++;
+    currentPagePosition = ITEMS_PER_PAGE * pageNumber;
+  }
+  return pagedMovies;
 };
 
-// Returns an array of movies chunks divided by pages
-const preparePagination = (items) => {
-    const pagesCount = Math.floor(items.length / ITEMS_PER_PAGE);
-	let pagedMovies = [];
-	let pageNumber = 0, currentPagePosition = 0;
-	while(pageNumber <= pagesCount) {
-		pagedMovies.push({
-			pageNumber,
-			moviesData: items.slice(currentPagePosition, currentPagePosition + ITEMS_PER_PAGE)
-		});
-		pageNumber++;
-		currentPagePosition = ITEMS_PER_PAGE * pageNumber;
-	}
-	return pagedMovies;
-}
+const getGenres = items => {
+  let genres = [];
+  items.forEach(item => {
+    item.genres.forEach(genre => {
+      if (genres.indexOf(genre) < 0) {
+        genres.push(genre);
+      }
+    });
+  });
+  return [].concat(['None'], genres);
+};
 
-const setFilter = (items) => {
-	return items;
-}
+const setFilter = (items, filterParam = 'None') => {
+  let filteredItems = [];
+  if (filterParam === 'None') return items;
+  items.forEach(item => {
+    if (!item.genres) console.log(item);
+    if (item.genres.indexOf(filterParam) >= 0) {
+      filteredItems.push(item);
+    }
+  });
+  return filteredItems;
+};
 
-const setSearch = (items) => {
-	return items;
-}
+const setSearch = (items, searchParam) => {
+  return items.filter(
+    item => item.title.toLowerCase().indexOf(searchParam.toLowerCase()) >= 0,
+  );
+};
 
-const prepareData = (items) => {
-	getQueryParams();
-	return preparePagination(items);
-}
+const prepareData = items => {
+  const {filterParam, searchParam} = getQueryParams();
+  const paginatedMovies = preparePagination(
+    setSearch(setFilter(items, filterParam), searchParam),
+  );
+  return {
+    paginatedMovies,
+    filterParam,
+  };
+};
+
+// TODO: this seems like a bad decision. I should move some pagination logic into Pagination component
+const paginatedMoviesToArray = movies => {
+  const res = movies.reduce(
+    (moviesArr, paginatedData) => moviesArr.concat(paginatedData.moviesData),
+    [],
+  );
+  return res;
+};
 
 export const Home = () => {
-	const [movies, setMovies] = useState([]);
-	useEffect(() => {
-		fetchMovies().then(res => {
-			setMovies( prepareData(res.movies) );
-		});
-	}, []);
+  const [sourceMovies, setSourceMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
+  const [genres, setGenres] = useState([]);
+  // TODO: do I really need to store filterParam with useState?
+  // Get rid of this useState and use just const { filterParam } = getQueryParams
+	// Even if filterParam from url string will be changed it's not that scary
+  const [filterParamFromQuery, setFilterParam] = useState('None');
 
-    return (
-        <div>
-            <div className="header">
-                <div>Movies Catalogue App</div>
-                <hr />
+  useEffect(() => {
+    fetchMovies().then(res => {
+      setSourceMovies(res.movies);
+      const {paginatedMovies, filterParam} = prepareData(res.movies);
+      const genres = getGenres(res.movies);
+      setMovies(paginatedMovies);
+      setGenres(genres);
+      setFilterParam(filterParam);
+    });
+  }, []);
 
-                <div>
-                    Filter by
-                    <span>
-                        <select>
-                            <option value="genre">genre</option>
-                        </select>
-                        <select>
-                            <option value="horror">Horror</option>
-                        </select>
-                    </span>
-                </div>
+  const onFilter = () => {
+    // const { paginatedMovies } = prepareData(paginatedMoviesToArray(movies));
+    const {paginatedMovies, filterParam} = prepareData(sourceMovies);
+    setMovies(paginatedMovies);
+    setFilterParam(filterParam);
+  };
 
-                <div>
-                    Search by Title
-                    <input type="text" />
-                </div>
-            </div>
+  const onSearch = () => {
+    const {paginatedMovies} = prepareData(sourceMovies);
+    setMovies(paginatedMovies);
+    // setFilterParam(filterParam);
+  };
 
-            <div className="content">
-                <Pagination
-                    WrappedComponent={MovieList}
-                    movies={movies}
-                />
-            </div>
+  return (
+    <div>
+      <div className="header">
+        <div>Movies Catalogue App</div>
+        <hr />
 
-            <div className="pagination" />
-            <div className="footer">(c) 2019 by nopefish</div>
-        </div>
-    );
+        <Filter
+          genres={genres}
+          onFilter={onFilter}
+          filterParam={filterParamFromQuery}
+        />
+
+        <Search onSearch={onSearch} />
+      </div>
+
+      <div className="content">
+        <Pagination WrappedComponent={MovieList} movies={movies} />
+      </div>
+
+      <div className="pagination" />
+      <div className="footer">(c) 2019 by nopefish</div>
+    </div>
+  );
 };
