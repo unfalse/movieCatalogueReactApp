@@ -72,6 +72,7 @@ const prepareData = items => {
 };
 
 // TODO: this seems like a bad decision. I should move some pagination logic into Pagination component
+/*
 const paginatedMoviesToArray = movies => {
   const res = movies.reduce(
     (moviesArr, paginatedData) => moviesArr.concat(paginatedData.moviesData),
@@ -79,6 +80,7 @@ const paginatedMoviesToArray = movies => {
   );
   return res;
 };
+ */
 
 export const Home = () => {
   const [sourceMovies, setSourceMovies] = useState([]);
@@ -86,7 +88,7 @@ export const Home = () => {
   const [genres, setGenres] = useState([]);
   // TODO: do I really need to store filterParam with useState?
   // Get rid of this useState and use just const { filterParam } = getQueryParams
-	// Even if filterParam from url string will be changed it's not that scary
+  // Even if filterParam from url string will be changed it's not that scary
   const [filterParamFromQuery, setFilterParam] = useState('None');
 
   useEffect(() => {
@@ -102,7 +104,8 @@ export const Home = () => {
 
   const onFilter = () => {
     // const { paginatedMovies } = prepareData(paginatedMoviesToArray(movies));
-    const {paginatedMovies, filterParam} = prepareData(sourceMovies);
+    const {paginatedMovies} = prepareData(sourceMovies);
+    const {filterParam} = getQueryParams();
     setMovies(paginatedMovies);
     setFilterParam(filterParam);
   };
