@@ -1,18 +1,55 @@
-.pagination {
-	text-align: center;
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .active {
-	color: blue;
-	cursor: pointer;
+  color: blue;
+  cursor: pointer;
 }
 
 .inactive {
-	color: gray;
-	cursor: pointer;
+  color: gray;
+  cursor: pointer;
 }
 
 .button {
-	border: 1px solid black;
-	margin: 2px;
+  height: 20px;
+  width: 20px;
+  margin: 2px;
+  cursor: pointer;
+}
+
+.play-button__inactive {
+  fill: gray;
+  pointer-events: none;
+}
+
+.play-button__active {
+}
+
+.play-button-reverse__inactive {
+  fill: gray;
+  transform: rotate(180deg);
+  pointer-events: none;
+}
+
+.play-button-reverse__active {
+  transform: rotate(180deg);
+}
+
+.play-next-button-reverse__inactive {
+  fill: gray;
+  transform: rotate(180deg);
+  pointer-events: none;
+}
+
+.play-next-button-reverse__active {
+  transform: rotate(180deg);
+}
+
+.play-next-button__inactive {
+  fill: gray;
+  pointer-events: none;
 }
