@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
 
 import {fetchMovies} from '../../apis';
-import {MovieList} from '../MovieList';
+import MovieList from '../MovieList';
 import {Pagination} from '../Pagination';
 import {Filter} from '../Filter';
 import {Search} from '../Search';
 import {getQueryParams} from '../../utils/url';
+
+import './Home.css';
 
 const ITEMS_PER_PAGE = 3;
 
@@ -90,7 +92,6 @@ export const Home = () => {
   // Get rid of this useState and use just const { filterParam } = getQueryParams
   // Even if filterParam from url string will be changed it's not that scary
   const [filterParamFromQuery, setFilterParam] = useState('None');
-
   useEffect(() => {
     fetchMovies().then(res => {
       setSourceMovies(res.movies);
@@ -119,15 +120,18 @@ export const Home = () => {
   return (
     <div>
       <div className="header">
-        <div>Movies Catalogue App</div>
-        <hr />
+        <div className="header__upper-line"></div>
+        <div className="header__logo">
+          <div className="header__logo-content">Movies Catalogue App</div>
+        </div>
+      </div>
 
+      <div className="filters-block">
         <Filter
           genres={genres}
           onFilter={onFilter}
           filterParam={filterParamFromQuery}
         />
-
         <Search onSearch={onSearch} />
       </div>
 
@@ -136,7 +140,22 @@ export const Home = () => {
       </div>
 
       <div className="pagination" />
-      <div className="footer">(c) 2019 by nopefish</div>
+      <div className="footer">
+        <div>
+          Icons made by{' '}
+          <a
+            href="https://www.flaticon.com/authors/smashicons"
+            title="Smashicons">
+            Smashicons
+          </a>{' '}
+          from{' '}
+          <a href="https://www.flaticon.com/" title="Flaticon">
+            www.flaticon.com
+          </a>
+        </div>
+
+        <div>(c) 2019 by nopefish</div>
+      </div>
     </div>
   );
 };

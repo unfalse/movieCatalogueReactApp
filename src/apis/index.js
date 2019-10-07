@@ -1,3 +1,3 @@
-import { fetchMovies } from "./fetchData";
+import {fetchMovies, fetchMovie} from './fetchData';
 
-export { fetchMovies };
+export {fetchMovies, fetchMovie};

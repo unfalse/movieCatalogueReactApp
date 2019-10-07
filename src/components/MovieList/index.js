@@ -1,3 +1,5 @@
-import { MovieList } from './MovieList';
+import {withRouter} from 'react-router-dom';
 
-export { MovieList }
+import {MovieList} from './MovieList';
+
+export default withRouter(MovieList);
