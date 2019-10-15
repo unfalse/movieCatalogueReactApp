@@ -4,7 +4,7 @@ import './styles.css';
 export const MovieList = ({movies = [], history}) => {
   const MovieShortInfo = ({movie}) => {
     const {posterUrl, title, genres, year, director, plot, runtime, id} = movie;
-    const gotoMovieDetails = () => void history.push(`movie/${id}`, movie);
+    const gotoMovieDetails = () => void history.push(`/movie/${id}`, {movie});
     return (
       <div className="content__movie-short-info" onClick={gotoMovieDetails}>
         <div className="content__movie-short-info-poster">

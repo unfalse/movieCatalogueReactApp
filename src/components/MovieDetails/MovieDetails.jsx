@@ -1,19 +1,25 @@
 import React, {useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
 
 import {fetchMovie} from '../../apis';
 
 import './MovieDetails.css';
 
-const MovieDetails = ({match}) => {
+const MovieDetails = ({match, location, history}) => {
   const {id} = match.params;
   const [movie, setMovie] = useState({});
 
   useEffect(() => {
-    fetchMovie(id).then(movieData => {
-      setMovie(movieData);
-      console.log(movieData);
-    });
-  }, [id]);
+    const {state} = location;
+    if (state && state.movie) {
+      setMovie(state.movie);
+    } else {
+      fetchMovie(id).then(movieData => {
+        setMovie(movieData);
+        console.log(movieData);
+      });
+    }
+  }, []);
 
   const {
     posterUrl = '',
@@ -25,9 +31,10 @@ const MovieDetails = ({match}) => {
     actors = '',
     runtime = '',
   } = movie;
+  console.log(location);
   return (
     <div>
-      <a href="/">Go back</a>
+      <Link to="/">Go back</Link>
       <div className="movie-details">
         <div className="movie-details__poster">
           <img alt="Movie poster" src={posterUrl} />

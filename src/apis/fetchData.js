@@ -1,5 +1,5 @@
 export const fetchMovies = () =>
-  fetch('db.json')
+  fetch('/db.json')
     .then(res => {
       return res.json();
     })
