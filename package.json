@@ -1,15 +1,9 @@
 {
-  "name": "new",
+  "name": "movie-catalogue",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
   "main": "src/index.js",
-  "dependencies": {
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "3.0.1"
-  },
   "devDependencies": {
     "prettier": "^1.18.2",
     "typescript": "3.3.3"
@@ -26,5 +20,11 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "dependencies": {
+    "react": "16.11.0",
+    "react-dom": "16.11.0",
+    "react-router-dom": "5.1.2",
+    "react-scripts": "3.2.0"
+  }
 }
