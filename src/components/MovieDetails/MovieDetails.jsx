@@ -8,6 +8,9 @@ import './MovieDetails.css';
 const MovieDetails = ({match, location, history}) => {
   const {id} = match.params;
   const [movie, setMovie] = useState({});
+  const goBack = () => {
+    history.goBack();
+  }
 
   useEffect(() => {
     const {state} = location;
@@ -34,7 +37,8 @@ const MovieDetails = ({match, location, history}) => {
   console.log(location);
   return (
     <div>
-      <Link to="/">Go back</Link>
+      {/* <Link to="/">Go back</Link> */}
+      <button onClick={goBack}>Go back</button>
       <div className="movie-details">
         <div className="movie-details__poster">
           <img alt="Movie poster" src={posterUrl} />

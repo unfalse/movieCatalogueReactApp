@@ -18,9 +18,6 @@ export const Home = props => {
     history,
   } = props;
   const {pageNum = 1} = useParams();
-  //  console.log(props);
-  // console.log(pageNum);
-  // console.log(typeof pageNum);
   return (
     <div>
       <div className="filters-block">
