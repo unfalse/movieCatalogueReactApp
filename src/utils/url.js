@@ -1,12 +1,22 @@
-const getQueryParams = () => {
-  const {search} = window.location;
-  const params = new URLSearchParams(search);
-  const filterParam = params.get('filter');
-  const searchParam = params.get('search');
-  return {
-    filterParam: filterParam || 'None',
-    searchParam: searchParam || '',
-  };
+export const getQueryParams = location => {
+    const { search } = location;
+    const params = new URLSearchParams(search);
+    const filterParam = params.get('filter');
+    const searchParam = params.get('search');
+    const pageParam = params.get('page');
+    return {
+        filterParam: filterParam || 'None',
+        searchParam: searchParam || '',
+        pageParam: pageParam || '',
+    };
 };
 
-export {getQueryParams};
+export const getQueryParamsString = (
+    { newPage, newFilter, newSearch },
+    location
+) => {
+    const { filterParam, searchParam, pageParam } = getQueryParams(location);
+    return `?page=${newPage === undefined ? pageParam : newPage}&filter=${
+        newFilter === undefined ? filterParam : newFilter
+    }&search=${newSearch === undefined ? searchParam : newSearch}`;
+};
