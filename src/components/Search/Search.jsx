@@ -1,25 +1,23 @@
 import React from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 
-import {getQueryParams} from '../../utils/url';
+import { getQueryParamsString, getQueryParams } from '../../utils/url';
 
-const Search = ({onSearch}) => {
-  const onInputChange = e => {
-    const {filterParam} = getQueryParams();
-    const searchParam = e.target.value;
-    window.history.pushState(
-      {},
-      '',
-      `${window.origin}/?filter=${filterParam}&search=${searchParam}`,
+const Search = ({ onSearch }) => {
+    let history = useHistory();
+    const location = useLocation();
+    const { searchParam } = getQueryParams(location);
+    const onInputChange = e => {
+        const searchValue = e.target.value;
+        history.push(`${getQueryParamsString({ newSearch: searchValue, newPage: 1 }, location)}`);
+        onSearch();
+    };
+    return (
+        <div>
+            Search by Title
+            <input type="text" onChange={onInputChange} value={searchParam} />
+        </div>
     );
-    onSearch();
-  };
-
-  return (
-    <div>
-      Search by Title
-      <input type="text" onChange={onInputChange} />
-    </div>
-  );
 };
 
-export {Search};
+export { Search };

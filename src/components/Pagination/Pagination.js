@@ -1,20 +1,22 @@
 import React from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { ReactComponent as PlayButton } from '../../assets/playButton.svg';
 import { ReactComponent as PlayNextButton } from '../../assets/playNextButton.svg';
+import { getQueryParamsString, getQueryParams } from '../../utils/url';
 
 import './styles.css';
 
-export const Pagination = ({
-    movies = [],
-    WrappedComponent,
-    history,
-    pageNum = 1,
-}) => {
+export const Pagination = ({ movies = [], WrappedComponent }) => {
+    let history = useHistory();
+    const location = useLocation();
+    const pageNum = +getQueryParams(location).pageParam || 1;
     const pagesCount = movies.length;
 
-    const gotoPage = pageNumber => void history.push(`/page/${pageNumber}`);
-
+    const gotoPage = pageNumber => {
+        const newParams = `${getQueryParamsString({ newPage: pageNumber }, location)}`;
+        history.push(newParams);
+    }
     const goForward = () => void gotoPage(pageNum + 1);
     const goBackwards = () => void gotoPage(pageNum - 1);
     const goToFirst = () => void gotoPage(1);

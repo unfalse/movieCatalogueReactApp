@@ -1,19 +1,18 @@
 import React from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 
-import { getQueryParams } from '../../utils/url';
+import { getQueryParams, getQueryParamsString } from '../../utils/url';
 
 const Filter = ({ genres, onFilter }) => {
+    let history = useHistory();
+    const location = useLocation();
+    const { filterParam } = getQueryParams(location);
+
     const onOptionClick = e => {
         const filterValue = e.target.value;
-        window.history.pushState(
-            {},
-            '',
-            `${window.origin}/?filter=${filterValue}`
-        );
+        history.push(`${getQueryParamsString({ newFilter: filterValue, newPage: 1 }, location)}`);
         onFilter();
     };
-
-    const { filterParam } = getQueryParams();
 
     return (
         <div>

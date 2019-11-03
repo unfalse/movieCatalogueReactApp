@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
-import { HashRouter as Router, Route, Redirect } from 'react-router-dom';
-import { createBrowserHistory } from "history";
+import { useLocation } from 'react-router-dom';
 
 import { Home } from '../Home';
-import { MovieDetails } from '../MovieDetails';
 import { getQueryParams } from '../../utils/url';
 
 import './styles.css';
 
 const ITEMS_PER_PAGE = 3;
-
-const history = createBrowserHistory();
 
 // Returns an array of movies divided by pages
 const preparePagination = items => {
@@ -62,8 +58,8 @@ const applySearch = (items, searchParam) => {
     );
 };
 
-const prepareData = items => {
-    const { filterParam, searchParam } = getQueryParams();
+const prepareData = (items, location) => {
+    const { filterParam, searchParam } = getQueryParams(location);
     const paginatedMovies = preparePagination(
         applySearch(applyFilter(items, filterParam), searchParam)
     );
@@ -74,78 +70,28 @@ const prepareData = items => {
     };
 };
 
-export const AppViewer = movies => {
+export const AppViewer = ({movies}) => {
     const [filterParamFromQuery, setFilterParam] = useState('None');
     const [searchParamFromQuery, setSearchParam] = useState('');
+    const location = useLocation();
+    const { paginatedMovies, genres } = prepareData(movies, location);
 
     const onFilter = () => {
-        const { filterParam } = getQueryParams();
+        const { filterParam } = getQueryParams(location);
         setFilterParam(filterParam);
     };
 
     const onSearch = () => {
-        const { searchParam } = getQueryParams();
+        const { searchParam } = getQueryParams(location);
         setSearchParam(searchParam);
     };
 
-    const { paginatedMovies, genres } = prepareData(movies);
-console.log('AppViewer func body');
-    return (
-        <div>
-            <div className="header">
-                <div className="header__upper-line"></div>
-                <div className="header__logo">
-                    <div className="header__logo-content">
-                        Movies Catalogue App
-                    </div>
-                </div>
-            </div>
-
-            <Router history={history}>
-                <Route
-                    exact
-                    path={['/', '/page/:pageNum']}
-                    render={({ history, location }) => {
-                        console.log(location);
-                        return (
-                            <>
-                                <Home
-                                    genres={genres}
-                                    filterParamFromQuery={filterParamFromQuery}
-                                    searchParamFromQuery={searchParamFromQuery}
-                                    movies={paginatedMovies}
-                                    onFilter={onFilter}
-                                    onSearch={onSearch}
-                                    history={history}
-                                />
-                                <Redirect to="/page/1" />
-                            </>
-                        )}
-                    }
-                />
-                <Route path="/movie/:id" component={MovieDetails} />
-            </Router>
-
-            <div className="footer">
-                <div className="footer__content">
-                    <div className="footer__icons-notice">
-                        Icons made by{' '}
-                        <a
-                            href="https://www.flaticon.com/authors/smashicons"
-                            title="Smashicons"
-                        >
-                            Smashicons
-                        </a>{' '}
-                        from{' '}
-                        <a href="https://www.flaticon.com/" title="Flaticon">
-                            www.flaticon.com
-                        </a>
-                    </div>
-                    <div className="footer__copyright-label">
-                        (c) 2019 by nopefish
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+    return <>
+        <Home
+            genres={genres}
+            movies={paginatedMovies}
+            onFilter={onFilter}
+            onSearch={onSearch}
+        />
+    </>;
 };
