@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 
 export const ImgFallback = ({alt = '', src, srcFallback}) => {
     const [imgSrc, setSrc] = useState(src);
@@ -9,6 +9,10 @@ export const ImgFallback = ({alt = '', src, srcFallback}) => {
             setErrored(true);
         }
     }
+    useEffect(() => {
+        setSrc(src);
+        setErrored(false);
+    }, [src]);
     return (
         <img alt={alt} src={imgSrc} onError={onError}/>
     )

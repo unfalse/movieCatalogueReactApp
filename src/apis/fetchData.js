@@ -1,5 +1,7 @@
+const FAKE_FETCH_DELAY = 0;
+
 const timeoutPromise = () => new Promise((resolve, reject) => {
-  setTimeout(resolve, 2000);
+  setTimeout(resolve, FAKE_FETCH_DELAY);
 });
 
 export const fetchMovies = () =>
