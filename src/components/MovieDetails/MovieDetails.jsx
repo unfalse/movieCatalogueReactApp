@@ -7,7 +7,7 @@ import NoPoster from '../../assets/noposter.png';
 
 import './MovieDetails.css';
 
-const MovieDetails = ({match, location, history}) => {
+const MovieDetails = ({match, history}) => {
   const {id} = match.params;
   const [movie, setMovie] = useState({});
   const goBack = () => {
@@ -15,15 +15,9 @@ const MovieDetails = ({match, location, history}) => {
   }
 
   useEffect(() => {
-    const {state} = location;
-    if (state && state.movie) {
-      setMovie(state.movie);
-    } else {
-      fetchMovie(id).then(movieData => {
-        setMovie(movieData);
-        console.log(movieData);
-      });
-    }
+    fetchMovie(id).then(movieData => {
+      setMovie(movieData);
+    });
   }, []);
 
   const {
@@ -36,7 +30,6 @@ const MovieDetails = ({match, location, history}) => {
     actors = '',
     runtime = '',
   } = movie;
-  console.log(location);
   return (
     <div>
       <button onClick={goBack}>Go back</button>
