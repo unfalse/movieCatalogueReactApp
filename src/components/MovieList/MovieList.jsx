@@ -1,6 +1,10 @@
 import React from 'react';
 
+import {ImgFallback} from '../ImgFallback';
+import NoPoster from '../../assets/noposter.png';
+
 import './styles.css';
+
 export const MovieList = ({movies = [], history}) => {
   const MovieShortInfo = ({movie}) => {
     const {posterUrl, title, genres, year, director, plot, runtime, id} = movie;
@@ -8,7 +12,7 @@ export const MovieList = ({movies = [], history}) => {
     return (
       <div className="content__movie-short-info" onClick={gotoMovieDetails}>
         <div className="content__movie-short-info-poster">
-          <img alt="Movie poster" src={posterUrl} />
+          <ImgFallback alt="Movie poster" src={posterUrl} srcFallback={NoPoster}/>
         </div>
 
         <div className="content__movie-short-info-text-part">
