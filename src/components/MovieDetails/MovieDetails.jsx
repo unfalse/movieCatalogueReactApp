@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
 
 import {fetchMovie} from '../../apis';
+
+import {ImgFallback} from '../ImgFallback';
+import NoPoster from '../../assets/noposter.png';
 
 import './MovieDetails.css';
 
@@ -37,11 +39,10 @@ const MovieDetails = ({match, location, history}) => {
   console.log(location);
   return (
     <div>
-      {/* <Link to="/">Go back</Link> */}
       <button onClick={goBack}>Go back</button>
       <div className="movie-details">
         <div className="movie-details__poster">
-          <img alt="Movie poster" src={posterUrl} />
+          <ImgFallback alt="Movie poster" src={posterUrl} srcFallback={NoPoster}/>
         </div>
         <div className="movie-details__text-part">
           <div className="movie-details__title">{title}</div>
