@@ -6,6 +6,8 @@ import { AppViewer } from './AppViewer';
 import { fetchMovies } from '../../apis';
 import { MovieDetails } from '../MovieDetails';
 
+import './bulma-styles.scss';
+
 const history = createBrowserHistory();
 
 export const AppContainer = () => {
