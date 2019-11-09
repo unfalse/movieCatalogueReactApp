@@ -17,7 +17,7 @@ export const Home = props => {
                 <Search onSearch={onSearch} />
             </div>
 
-            <div className="content">
+            <div className="container">
                 <Pagination WrappedComponent={MovieList} movies={movies} />
             </div>
         </div>
