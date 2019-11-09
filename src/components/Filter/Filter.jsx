@@ -10,25 +10,57 @@ const Filter = ({ genres, onFilter }) => {
 
     const onOptionClick = e => {
         const filterValue = e.target.value;
-        history.push(`${getQueryParamsString({ newFilter: filterValue, newPage: 1 }, location)}`);
+        history.push(
+            `${getQueryParamsString(
+                { newFilter: filterValue, newPage: 1 },
+                location
+            )}`
+        );
         onFilter();
     };
 
     return (
-        <div>
-            Filter by
-            <span>
-                <select>
-                    <option value="genre">genre</option>
-                </select>
-                <select onChange={onOptionClick} defaultValue={filterParam}>
-                    {genres.map((genre, genreIndex) => (
-                        <option key={genreIndex} value={genre}>
-                            {genre}
-                        </option>
-                    ))}
-                </select>
-            </span>
+        <div className="columns">
+            <div className="column is-narrow">
+                <div className="field is-horizontal box" style={{ width: 90 }}>
+                    <div className="field-label is-normal">
+                        <label className="label">Filter by</label>
+                    </div>
+                </div>
+            </div>
+            <div className="column">
+                <div className="field-body">
+                    <div className="field">
+                        <div className="control">
+                            <div className="select is-fullwidth">
+                                <select>
+                                    <option value="genre">genre</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="column">
+                <div className="field-body">
+                    <div className="field">
+                        <div className="control">
+                            <div className="select is-fullwidth">
+                                <select
+                                    onChange={onOptionClick}
+                                    defaultValue={filterParam}
+                                >
+                                    {genres.map((genre, genreIndex) => (
+                                        <option key={genreIndex} value={genre}>
+                                            {genre}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
