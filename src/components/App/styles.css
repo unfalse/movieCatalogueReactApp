@@ -22,7 +22,7 @@
 }
 
 .header__upper-line {
-  background-color: #a9e8a9;
+  /* background-color: #a9e8a9; */
   height: 37px;
 }
 
@@ -31,7 +31,7 @@
 }
 
 .footer__content {
-  background-color: #a9e8a9;
+  /* background-color: #a9e8a9; */
   display: flex;
   align-items: center;
   flex-direction: column;
