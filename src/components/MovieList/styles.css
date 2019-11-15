@@ -1,55 +1,48 @@
+.content__movie-short-info-title-year-genres {
+    display: flex;
+    align-items: center;
+}
+
 .content__movie-short-info-genres span {
-  border: 1px solid blue;
-  border-radius: 4px;
-  color: white;
-  background-color: blue;
-  font-weight: 600;
-  margin-right: 5px;
-  font-size: 0.9rem;
+    margin-right: 5px;
 }
 
 .content__movie-short-info-poster img {
-  height: 125px;
-  width: 85px;
+    height: 125px;
 }
 
 .content__movie-short-info-poster {
-  height: 125px;
-  width: 85px;
-  background-color: lightgray;
-  margin-right: 10px;
-  text-align: center;
-}
-
-.content__movie-short-info-text-part {
+    width: 85px;
+    background-color: lightgray;
+    margin-right: 10px;
+    text-align: center;
 }
 
 .content__movie-short-info-title {
-  font-size: 1.3rem;
-  font-weight: 600;
-  font-family: Courier New;
-  margin: 5px 0px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    font-family: Courier New;
+    margin: 5px 0px;
 }
 
 .content__movie-short-info-plot {
-  overflow: hidden;
-  width: 40em;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.content__movie-short-info-title-year-genres {
-  display: flex;
-  align-items: center;
+    overflow: hidden;
+    width: 40em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .content__movie-short-info-year {
-  font-family: Arial;
-  text-decoration: underline;
-  margin: 8px 10px;
+    font-family: Arial;
+    text-decoration: underline;
+    margin: 8px 10px;
 }
 
 .content__movie-short-info {
-  display: flex;
-  padding: 20px;
+    display: flex;
+    padding: 20px;
+}
+
+.content__movie-short-info:hover {
+    background-color: hsl(0, 0%, 86%);
 }
