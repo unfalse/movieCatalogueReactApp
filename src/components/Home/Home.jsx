@@ -17,7 +17,8 @@ export const Home = props => {
                 <Search onSearch={onSearch} />
             </div>
 
-            <div className="container">
+{/* TODO: put container above all other divs */}
+            <div>
                 <Pagination WrappedComponent={MovieList} movies={movies} />
             </div>
         </div>
