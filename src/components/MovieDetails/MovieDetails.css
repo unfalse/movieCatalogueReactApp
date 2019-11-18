@@ -1,6 +1,11 @@
+.movie-details {
+  /* display: flex;
+  padding: 20px; */
+}
+
 .movie-details__poster img {
-  height: 250px;
-  width: 170px;
+  /* height: 200%;
+  width: 200%; */
 }
 
 .movie-details__title {
@@ -46,10 +51,7 @@
   font-style: italic;
 }
 
-.movie-details {
-  display: flex;
-  padding: 20px;
-}
+
 
 .movie-details__text-part {
   padding: 20px;
