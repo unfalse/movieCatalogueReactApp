@@ -10,7 +10,7 @@ import './styles.css';
 export const Pagination = ({ movies = [], WrappedComponent }) => {
     let history = useHistory();
     const location = useLocation();
-    const pageNum = +getQueryParams(location).pageParam || 1;
+    const pageNum = Number(getQueryParams(location).pageParam) || 1;
     const pagesCount = movies.length;
 
     const gotoPage = pageNumber => {
@@ -73,7 +73,7 @@ export const Pagination = ({ movies = [], WrappedComponent }) => {
     };
 
     const moviesData =
-        movies.length > 0 && pageNum - 1 >= 0
+        movies.length > 0 && (pageNum - 1 >= 0 && movies[0].moviesData.length > 0)
             ? movies[pageNum - 1].moviesData
             : [];
 
