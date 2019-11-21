@@ -5,7 +5,7 @@ import { fetchMovie } from '../../apis';
 import { ImgFallback } from '../ImgFallback';
 import NoPoster from '../../assets/noposter.png';
 
-import './MovieDetails.css';
+import './styles.css';
 
 const MovieDetails = ({ match, history }) => {
     const { id } = match.params;
@@ -32,12 +32,16 @@ const MovieDetails = ({ match, history }) => {
     } = movie;
     return (
         <div>
-            <button onClick={goBack}>Go back</button>
+            <a href="#" onClick={goBack}>
+                return to movie list
+            </a>
             <div className="movie-details center">
                 <div className="title">{title}</div>
                 <div className="movie-details__genres">
                     {genres.map((g, i) => (
-                        <span key={i}>{g}</span>
+                        <span className="tag is-info" key={i}>
+                            {g}
+                        </span>
                     ))}
                 </div>
                 <div className="movie-details__year">{year}</div>
@@ -49,8 +53,13 @@ const MovieDetails = ({ match, history }) => {
                     />
                 </div>
                 <div className="movie-details__text-part">
+                    <div className="movie-details__header">director(s)</div>
                     <div className="movie-details__director">{director}</div>
+                    
+                    <div className="movie-details__header">stars</div>
                     <div className="movie-details__actors">{actors}</div>
+                    
+                    <div className="movie-details__header">plot</div>
                     <div className="movie-details__plot">{plot}</div>
                     <div className="movie-details__runtime">{runtime} min.</div>
                 </div>
