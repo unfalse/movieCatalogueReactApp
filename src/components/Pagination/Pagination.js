@@ -14,74 +14,112 @@ export const Pagination = ({ movies = [], WrappedComponent }) => {
     const pagesCount = movies.length;
 
     const gotoPage = pageNumber => {
-        const newParams = `${getQueryParamsString({ newPage: pageNumber }, location)}`;
+        const newParams = `${getQueryParamsString(
+            { newPage: pageNumber },
+            location
+        )}`;
         history.push(newParams);
-    }
+    };
     const goForward = () => void gotoPage(pageNum + 1);
     const goBackwards = () => void gotoPage(pageNum - 1);
     const goToFirst = () => void gotoPage(1);
     const goToLast = () => void gotoPage(pagesCount);
-    const backCondition = pageNum - 1 <= 0;
-    const fwdCondition = pageNum >= pagesCount;
 
-    const PageControls = () => {
+    const PaginationControls = () => {
+        const backCondition = pageNum - 1 <= 0;
+        const fwdCondition = pageNum >= pagesCount;
         return (
-            <div className="pagination-controls">
-                <PlayNextButton
-                    className={
-                        backCondition
-                            ? 'button play-next-button-reverse__inactive'
-                            : 'button play-next-button-reverse__active'
-                    }
-                    disabled={backCondition}
-                    onClick={goToFirst}
-                />
-                <PlayButton
-                    className={
-                        backCondition
-                            ? 'button play-button-reverse__inactive'
-                            : 'button play-button-reverse__active'
-                    }
+            <nav
+                className="pagination"
+                role="navigation"
+                aria-label="pagination"
+            >
+                <a
+                    className="pagination-previous"
                     disabled={backCondition}
                     onClick={goBackwards}
-                />
-                <span>
-                    {pagesCount < 0
-                        ? 'Loading...'
-                        : `${pageNum} of ${pagesCount}`}
-                </span>
-                <PlayButton
-                    className={
-                        fwdCondition
-                            ? 'button play-button__inactive'
-                            : 'button play-button__active'
-                    }
+                >
+                    Previous
+                </a>
+                <a
+                    className="pagination-next"
                     disabled={fwdCondition}
                     onClick={goForward}
-                />
-                <PlayNextButton
-                    className={
-                        fwdCondition
-                            ? 'button play-next-button__inactive'
-                            : 'button play-next-button__active'
-                    }
-                    disabled={fwdCondition}
-                    onClick={goToLast}
-                />
-            </div>
+                >
+                    Next page
+                </a>
+                <ul className="pagination-list">
+                    <li>
+                        <a
+                            className="pagination-link"
+                            aria-label="Goto page 1"
+                            disabled={backCondition}
+                            onClick={goToFirst}
+                        >
+                            {backCondition ? '' :1}
+                        </a>
+                    </li>
+                    <li>
+                        <span className="pagination-ellipsis">&hellip;</span>
+                    </li>
+                    <li>
+                        <a
+                            className="pagination-link"
+                            aria-label={`Goto page ${pageNum - 1}`}
+                            disabled={backCondition}
+                            onClick={goBackwards}
+                        >
+                            {pageNum - 1}
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            className="pagination-link is-current"
+                            aria-label={`Page ${pageNum}`}
+                            aria-current="page"
+                        >
+                            {pagesCount < 0 ? 'Loading...' : pageNum}
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            className="pagination-link"
+                            aria-label={`Goto page ${pageNum + 1}`}
+                            disabled={fwdCondition}
+                            onClick={goForward}
+                        >
+                            {pageNum + 1}
+                        </a>
+                    </li>
+                    <li>
+                        <span className="pagination-ellipsis">&hellip;</span>
+                    </li>
+                    <li>
+                        <a
+                            className="pagination-link"
+                            aria-label={`Goto page ${pagesCount}`}
+                            disabled={fwdCondition}
+                            onClick={goToLast}
+                        >
+                            {fwdCondition ? '' : pagesCount}
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         );
     };
 
     const moviesData =
-        movies.length > 0 && (pageNum - 1 >= 0 && movies[0].moviesData.length > 0)
+        movies.length > 0 &&
+        (pageNum - 1 >= 0 && movies[0].moviesData.length > 0)
             ? movies[pageNum - 1].moviesData
             : [];
 
     return (
-        <div>
-            <PageControls />
+        <div className="pagination-container">
+            <PaginationControls />
             <WrappedComponent movies={moviesData} />
-            <PageControls />
+            <PaginationControls />
         </div>
     );
 };
