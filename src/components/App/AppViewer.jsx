@@ -4,8 +4,6 @@ import { useLocation } from 'react-router-dom';
 import { Home } from '../Home';
 import { getQueryParams } from '../../utils/url';
 
-import './styles.css';
-
 const ITEMS_PER_PAGE = 3;
 
 // Returns an array of movies divided by pages
@@ -86,12 +84,12 @@ export const AppViewer = ({movies}) => {
         setSearchParam(searchParam);
     };
 
-    return <>
+    return (
         <Home
             genres={genres}
             movies={paginatedMovies}
             onFilter={onFilter}
             onSearch={onSearch}
         />
-    </>;
+    );
 };

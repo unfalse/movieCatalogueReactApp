@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import { fetchMovie } from '../../apis';
-
 import { ImgFallback } from '../ImgFallback';
 import NoPoster from '../../assets/noposter.png';
 
@@ -32,9 +31,9 @@ const MovieDetails = ({ match, history }) => {
     } = movie;
     return (
         <div>
-            <a href="#" onClick={goBack}>
-                return to movie list
-            </a>
+            <button className="button" onClick={goBack}>
+                Return to movie list
+            </button>
             <div className="movie-details center">
                 <div className="title">{title}</div>
                 <div className="movie-details__genres">

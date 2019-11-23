@@ -1,48 +1,52 @@
-.content__movie-short-info-title-year-genres {
+.movie-list {
+    margin: 30px 0px;
+}
+
+.movie-list__short-info {
     display: flex;
-    align-items: center;
+    padding: 20px;
 }
 
-.content__movie-short-info-genres span {
-    margin-right: 5px;
+.movie-list__short-info:hover {
+    background-color: hsl(0, 0%, 86%);
 }
 
-.content__movie-short-info-poster img {
-    height: 125px;
-}
-
-.content__movie-short-info-poster {
+.movie-list__short-info-poster {
     width: 85px;
     background-color: lightgray;
     margin-right: 10px;
     text-align: center;
 }
 
-.content__movie-short-info-title {
+.movie-list__short-info-poster img {
+    height: 125px;
+}
+
+.movie-list__short-info-title-year-genres {
+    display: flex;
+    align-items: center;
+}
+
+.movie-list__short-info-title {
     font-size: 1.3rem;
     font-weight: 600;
     font-family: Courier New;
     margin: 5px 0px;
 }
 
-.content__movie-short-info-plot {
-    overflow: hidden;
-    width: 40em;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.content__movie-short-info-year {
+.movie-list__short-info-year {
     font-family: Arial;
     text-decoration: underline;
     margin: 8px 10px;
 }
 
-.content__movie-short-info {
-    display: flex;
-    padding: 20px;
+.movie-list__short-info-genres span {
+    margin-right: 5px;
 }
 
-.content__movie-short-info:hover {
-    background-color: hsl(0, 0%, 86%);
+.movie-list__short-info-plot {
+    overflow: hidden;
+    width: 40em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

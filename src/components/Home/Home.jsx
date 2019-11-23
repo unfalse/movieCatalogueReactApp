@@ -5,19 +5,15 @@ import { Pagination } from '../Pagination';
 import { Filter } from '../Filter';
 import { Search } from '../Search';
 
-import './Home.css';
-
 export const Home = props => {
     const { genres, movies, onFilter, onSearch } = props;
 
     return (
         <div>
-            <div className="filters-block">
+            <div>
                 <Filter genres={genres} onFilter={onFilter} />
                 <Search onSearch={onSearch} />
             </div>
-
-{/* TODO: put container above all other divs */}
             <div>
                 <Pagination WrappedComponent={MovieList} movies={movies} />
             </div>
