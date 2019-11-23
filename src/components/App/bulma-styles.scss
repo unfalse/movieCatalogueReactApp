@@ -28,18 +28,20 @@
 // Import only what you need from Bulma
 @import '../../../node_modules/bulma/sass/utilities/_all.sass';
 @import '../../../node_modules/bulma/sass/base/_all.sass';
+
 @import '../../../node_modules/bulma/sass/form/shared.sass';
-@import '../../../node_modules/bulma/sass/elements/form.sass';
 @import '../../../node_modules/bulma/sass/form/select.sass';
-@import '../../../node_modules/bulma/sass/form/shared.sass';
 @import '../../../node_modules/bulma/sass/form/tools.sass';
 @import '../../../node_modules/bulma/sass/form/input-textarea.sass';
+
 @import '../../../node_modules/bulma/sass/grid/columns.sass';
-@import '../../../node_modules/bulma/sass/grid/tiles.sass';
+
+@import '../../../node_modules/bulma/sass/elements/button.sass';
 @import '../../../node_modules/bulma/sass/elements/container.sass';
 @import '../../../node_modules/bulma/sass/elements/title.sass';
 @import '../../../node_modules/bulma/sass/elements/tag.sass';
-@import '../../../node_modules/bulma/sass/elements/image.sass';
+
 @import '../../../node_modules/bulma/sass/layout/footer.sass';
 @import '../../../node_modules/bulma/sass/layout/hero.sass';
+
 @import '../../../node_modules/bulma/sass/components/pagination.sass';

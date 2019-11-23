@@ -4,7 +4,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { getQueryParamsString, getQueryParams } from '../../utils/url';
 
 const Search = ({ onSearch }) => {
-    let history = useHistory();
+    const history = useHistory();
     const location = useLocation();
     const { searchParam } = getQueryParams(location);
     const onInputChange = e => {
