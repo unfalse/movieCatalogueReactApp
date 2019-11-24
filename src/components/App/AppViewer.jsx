@@ -13,13 +13,16 @@ const preparePagination = items => {
     let pageNumber = 0,
         currentPagePosition = 0;
     while (pageNumber <= pagesCount) {
-        pagedMovies.push({
-            pageNumber,
-            moviesData: items.slice(
+        if (items.length - currentPagePosition > 0) {
+            const moviesData = items.slice(
                 currentPagePosition,
                 currentPagePosition + ITEMS_PER_PAGE
-            ),
-        });
+            );
+            pagedMovies.push({
+                pageNumber,
+                moviesData
+            });
+        }
         pageNumber++;
         currentPagePosition = ITEMS_PER_PAGE * pageNumber;
     }
@@ -51,9 +54,10 @@ const applyFilter = (items, filterParam = 'None') => {
 };
 
 const applySearch = (items, searchParam) => {
-    return items.filter(
+    const result = items.filter(
         item => item.title.toLowerCase().indexOf(searchParam.toLowerCase()) >= 0
     );
+    return result;
 };
 
 const prepareData = (items, location) => {
