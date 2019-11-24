@@ -32,82 +32,75 @@ export const Pagination = ({ movies = [], WrappedComponent }) => {
                 role="navigation"
                 aria-label="pagination"
             >
-                <a
-                    className="pagination-previous"
+                <button
+                    className="pagination-previous has-background-white"
                     disabled={backCondition}
-                    href="#"
                     onClick={goBackwards}
                 >
                     Previous
-                </a>
-                <a
-                    className="pagination-next"
+                </button>
+                <button
+                    className="pagination-next has-background-white"
                     disabled={fwdCondition}
-                    href="#"
                     onClick={goForward}
                 >
                     Next page
-                </a>
+                </button>
                 <ul className="pagination-list">
                     <li>
-                        <a
-                            className="pagination-link"
+                        <button
+                            className="pagination-link has-background-white"
                             aria-label="Goto page 1"
                             disabled={backCondition}
-                            href="#"
                             onClick={goToFirst}
                         >
                             {backCondition ? '' : 1}
-                        </a>
+                        </button>
                     </li>
                     <li>
                         <span className="pagination-ellipsis">&hellip;</span>
                     </li>
                     <li>
-                        <a
-                            className="pagination-link"
+                        <button
+                            className="pagination-link has-background-white"
                             aria-label={`Goto page ${pageNum - 1}`}
                             disabled={backCondition}
-                            href="#"
                             onClick={goBackwards}
                         >
                             {pageNum - 1}
-                        </a>
+                        </button>
                     </li>
                     <li>
-                        <a
+                        <button
                             className="pagination-link is-current"
                             aria-label={`Page ${pageNum}`}
                             aria-current="page"
-                            href="#"
                         >
                             {pagesCount < 0 ? 'Loading...' : pageNum}
-                        </a>
+                        </button>
                     </li>
                     <li>
-                        <a
-                            className="pagination-link"
+                        <button
+                            className="pagination-link has-background-white"
                             aria-label={`Goto page ${pageNum + 1}`}
                             disabled={fwdCondition}
-                            href="#"
                             onClick={goForward}
                         >
                             {pageNum + 1}
-                        </a>
+                        </button>
                     </li>
                     <li>
                         <span className="pagination-ellipsis">&hellip;</span>
                     </li>
                     <li>
-                        <a
-                            className="pagination-link"
+                        <button
+                            className="pagination-link has-background-white"
                             aria-label={`Goto page ${pagesCount}`}
                             disabled={fwdCondition}
-                            href="#"
                             onClick={goToLast}
                         >
                             {fwdCondition ? '' : pagesCount}
-                        </a>
+                        </button>
                     </li>
                 </ul>
             </nav>

@@ -48,13 +48,17 @@ const Filter = ({ genres, onFilter }) => {
                             <div className="select is-fullwidth">
                                 <select
                                     onChange={onOptionClick}
-                                    defaultValue={filterParam}
                                 >
-                                    {genres.map((genre, genreIndex) => (
-                                        <option key={genreIndex} value={genre}>
-                                            {genre}
-                                        </option>
-                                    ))}
+                                    {
+                                        genres.map((genre, genreIndex) => {
+                                            const selectedProp = (filterParam === genre) ? { selected: true } : {};
+                                            return(
+                                                <option key={genreIndex} value={genre} {...selectedProp}>
+                                                    {genre}
+                                                </option>
+                                            )
+                                        })
+                                }
                                 </select>
                             </div>
                         </div>

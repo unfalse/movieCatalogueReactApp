@@ -1,6 +1,8 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { ImgFallback } from '../ImgFallback';
+import { getQueryParams } from '../../utils/url';
 import NoPoster from '../../assets/noposter.png';
 
 import './styles.css';
@@ -41,7 +43,7 @@ export const MovieList = ({ movies = [], history }) => {
                         <div className="movie-list__short-info-year">
                             {year}
                         </div>
-                        <div className="movie-list_-short-info-genres">
+                        <div className="movie-list__short-info-genres">
                             {genres.map((g, i) => (
                                 <span key={i} className="tag is-info">{g}</span>
                             ))}
@@ -60,8 +62,17 @@ export const MovieList = ({ movies = [], history }) => {
         );
     };
 
+    const location = useLocation();
+    const { searchParam } = getQueryParams(location);
+
     return (
         <div className="movie-list">
+            {
+                movies.length === 0 &&
+                <div className="is-italic subtitle has-text-centered">
+                        {`Nothing found on query "${searchParam}". Try to change the query.`}
+                    </div>
+            }
             {movies.map(m => (
                 <MovieShortInfo movie={m} key={m.id} />
             ))}
