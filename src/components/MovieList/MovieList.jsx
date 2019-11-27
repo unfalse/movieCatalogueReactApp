@@ -28,11 +28,12 @@ export const MovieList = ({ movies = [], history }) => {
                 onClick={gotoMovieDetails}
             >
                 <div className="movie-list__short-info-poster column is-2-desktop is-full-mobile is-2-tablet">
-                    <ImgFallback
+                    <img alt="Movie poster" src={posterUrl} />
+                    {/* <ImgFallback
                         alt="Movie poster"
                         src={posterUrl}
                         srcFallback={NoPoster}
-                    />
+                    /> */}
                 </div>
 
                 <div className="movie-list__short-info-text-part column">

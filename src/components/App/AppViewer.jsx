@@ -3,8 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import { Home } from '../Home';
 import { getQueryParams } from '../../utils/url';
-
-const ITEMS_PER_PAGE = 3;
+import { ITEMS_PER_PAGE } from '../../utils/const';
 
 // Returns an array of movies divided by pages
 const preparePagination = items => {

@@ -2,7 +2,8 @@ import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { getQueryParamsString, getQueryParams } from '../../utils/url';
-
+import { ITEMS_PER_PAGE } from '../../utils/const';
+import NoPoster from '../../assets/noposter.png';
 import './styles.css';
 
 export const Pagination = ({ movies = [], WrappedComponent }) => {
@@ -11,12 +12,19 @@ export const Pagination = ({ movies = [], WrappedComponent }) => {
     const pageNum = Number(getQueryParams(location).pageParam) || 1;
     const pagesCount = movies.length;
 
-    const gotoPage = pageNumber => {
-        const newParams = `${getQueryParamsString(
-            { newPage: pageNumber },
-            location
-        )}`;
-        history.push(newParams);
+    const gotoPage = async pageNumber => {
+        // if (pagesCount - pageNumber > 0) {
+        //     const moviesData = movies.slice(
+        //         pageNumber,
+        //         pageNumber + ITEMS_PER_PAGE
+        //     );
+        //     await PreloadPosters(moviesData)
+            const newParams = `${getQueryParamsString(
+                { newPage: pageNumber },
+                location
+            )}`;
+            history.push(newParams);
+        // }
     };
     const goForward = () => void gotoPage(pageNum + 1);
     const goBackwards = () => void gotoPage(pageNum - 1);

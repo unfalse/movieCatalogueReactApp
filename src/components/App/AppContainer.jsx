@@ -12,13 +12,28 @@ import './bulma-styles.scss';
 
 const history = createBrowserHistory();
 
+const PreloadPosters = movies => {
+    return Promise.all(
+        movies.map(movie =>
+            new Promise(resolve => {
+                var img = new Image();
+                img.onload = () => { resolve(); };
+                // TODO: write noposter into movie.posterUrl somehow
+                img.onerror = () => { /*movie.posterUrl = NoPoster;*/ resolve(); };
+                img.src = movie.posterUrl;
+            })
+        )
+    );
+};
+
 export const AppContainer = () => {
     const [movies, setMovies] = useState([]);
     const goHome = () => {
         history.push('/');
     };
     useEffect(() => {
-        fetchMovies().then(res => {
+        fetchMovies().then(async res => {
+            await PreloadPosters(res.movies);
             setMovies(res.movies);
         });
     }, []);
