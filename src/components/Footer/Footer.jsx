@@ -4,7 +4,7 @@ const Footer = () => (
     <footer className="footer">
         <div className="content has-text-centered">
             <div>(c) 2019 by nopefish</div>
-            <div>powered by Bulma.css</div>
+            <div>Powered by Bulma.css</div>
         </div>
     </footer>
 );
