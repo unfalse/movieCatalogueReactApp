@@ -16,8 +16,9 @@ export const AppContainer = () => {
     const [movies, setMovies] = useState([]);
     const [genres, setGenres] = useState([]);
     const [loading, setLoading] = useState(true);
-    const goHome = () => {
+    const resetAndGoHome = () => {
         history.push('/');
+        window.location.reload(true);
     };
     useEffect(() => {
         fetchMovies().then(res => {
@@ -30,11 +31,17 @@ export const AppContainer = () => {
     return (
         <div className="container">
             <Router history={history}>
-                <Header onClick={goHome} />
+                <Header onClick={resetAndGoHome} />
                 <Route
                     exact
                     path={'/'}
-                    render={() => <AppViewer movies={movies} genres={genres} loading={loading} />}
+                    render={() => (
+                        <AppViewer
+                            movies={movies}
+                            genres={genres}
+                            loading={loading}
+                        />
+                    )}
                 />
                 <Route path="/movie/:id" component={MovieDetails} />
                 <Footer />
