@@ -5,7 +5,7 @@ import { Pagination } from '../Pagination';
 import { Filter } from '../Filter';
 import { Search } from '../Search';
 
-export const Home = ({ genres, movies, onFilter, onSearch }) => {
+export const Home = ({ genres, movies, onFilter, onSearch, loading }) => {
     return (
         <div>
             <div>
@@ -13,7 +13,7 @@ export const Home = ({ genres, movies, onFilter, onSearch }) => {
                 <Search onSearch={onSearch} />
             </div>
             <div>
-                <Pagination WrappedComponent={MovieList} movies={movies} />
+                <Pagination WrappedComponent={MovieList} movies={movies} loading={loading} />
             </div>
         </div>
     );

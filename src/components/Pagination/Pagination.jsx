@@ -5,7 +5,7 @@ import { getQueryParamsString, getQueryParams } from '../../utils/url';
 
 import './styles.css';
 
-export const Pagination = ({ movies = [], WrappedComponent }) => {
+export const Pagination = ({ movies = [], WrappedComponent, loading }) => {
     let history = useHistory();
     const location = useLocation();
     const pageNum = Number(getQueryParams(location).pageParam) || 1;
@@ -116,7 +116,7 @@ export const Pagination = ({ movies = [], WrappedComponent }) => {
     return (
         <div className="pagination-container">
             <PaginationControls />
-            <WrappedComponent movies={moviesData} />
+            <WrappedComponent movies={moviesData} loading={loading}/>
             <PaginationControls />
         </div>
     );

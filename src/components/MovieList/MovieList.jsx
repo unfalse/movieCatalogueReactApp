@@ -1,13 +1,15 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { MyLoader } from '../MyLoader';
 
 import { ImgFallback } from '../ImgFallback';
 import { getQueryParams } from '../../utils/url';
+import { ITEMS_PER_PAGE } from '../../utils/const';
 import NoPoster from '../../assets/noposter.png';
 
 import './styles.css';
 
-export const MovieList = ({ movies = [], history }) => {
+export const MovieList = ({ movies = [], history, loading }) => {
     const MovieShortInfo = ({ movie }) => {
         const {
             posterUrl,
@@ -67,12 +69,17 @@ export const MovieList = ({ movies = [], history }) => {
 
     return (
         <div className="movie-list">
-            {
-                movies.length === 0 &&
+            {movies.length === 0 && (
                 <div className="is-italic subtitle has-text-centered">
-                        {`Nothing found on query "${searchParam}". Try to change the query.`}
-                    </div>
-            }
+                    {loading ? (
+                        <div>
+                            {Array(ITEMS_PER_PAGE).fill(0).map((v, i) => (<MyLoader key={i} />))}
+                        </div>
+                    ) : (
+                        `Nothing found on query ${searchParam}. Try to change the query.`
+                    )}
+                </div>
+            )}
             {movies.map(m => (
                 <MovieShortInfo movie={m} key={m.id} />
             ))}

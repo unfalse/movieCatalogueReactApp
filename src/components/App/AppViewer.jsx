@@ -3,8 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import { Home } from '../Home';
 import { getQueryParams } from '../../utils/url';
-
-const ITEMS_PER_PAGE = 3;
+import {ITEMS_PER_PAGE} from '../../utils/const';
 
 // Returns an array of movies divided by pages
 const preparePagination = items => {
@@ -58,7 +57,7 @@ const prepareData = (items, location) => {
     };
 };
 
-export const AppViewer = ({movies, genres}) => {
+export const AppViewer = ({movies, genres, loading}) => {
     const [filterParamFromQuery, setFilterParam] = useState('None');
     const [searchParamFromQuery, setSearchParam] = useState('');
     const location = useLocation();
@@ -80,6 +79,7 @@ export const AppViewer = ({movies, genres}) => {
             movies={paginatedMovies}
             onFilter={onFilter}
             onSearch={onSearch}
+            loading={loading}
         />
     );
 };

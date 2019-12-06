@@ -1,4 +1,4 @@
-const FAKE_FETCH_DELAY = 0;
+const FAKE_FETCH_DELAY = 5000;
 
 const timeoutPromise = () => new Promise((resolve, reject) => {
   setTimeout(resolve, FAKE_FETCH_DELAY);
@@ -14,7 +14,6 @@ export const fetchMovies = () =>
   );
 
 export const fetchMovie = id =>
-  timeoutPromise().then(() =>
     fetch('/db.json')
       .then(res => res.json())
       .then(moviesData => {
@@ -22,5 +21,4 @@ export const fetchMovie = id =>
           return moviesData.movies.find(movie => movie.id === +id);
         }
       })
-      .catch(e => void console.log(e))
-  );
+      .catch(e => void console.log(e));
