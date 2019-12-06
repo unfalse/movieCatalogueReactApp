@@ -29,18 +29,6 @@ const preparePagination = items => {
     return pagedMovies;
 };
 
-const getGenres = items => {
-    let genres = [];
-    items.forEach(item => {
-        item.genres.forEach(genre => {
-            if (genres.indexOf(genre) < 0) {
-                genres.push(genre);
-            }
-        });
-    });
-    return [].concat(['None'], genres);
-};
-
 const applyFilter = (items, filterParam = 'None') => {
     let filteredItems = [];
     if (filterParam === 'None') return items;
@@ -65,18 +53,16 @@ const prepareData = (items, location) => {
     const paginatedMovies = preparePagination(
         applySearch(applyFilter(items, filterParam), searchParam)
     );
-    const genres = getGenres(items);
     return {
-        paginatedMovies,
-        genres,
+        paginatedMovies
     };
 };
 
-export const AppViewer = ({movies}) => {
+export const AppViewer = ({movies, genres}) => {
     const [filterParamFromQuery, setFilterParam] = useState('None');
     const [searchParamFromQuery, setSearchParam] = useState('');
     const location = useLocation();
-    const { paginatedMovies, genres } = prepareData(movies, location);
+    const { paginatedMovies } = prepareData(movies, location);
 
     const onFilter = () => {
         const { filterParam } = getQueryParams(location);

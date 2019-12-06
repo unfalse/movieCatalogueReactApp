@@ -14,12 +14,14 @@ const history = createBrowserHistory();
 
 export const AppContainer = () => {
     const [movies, setMovies] = useState([]);
+    const [genres, setGenres] = useState([]);
     const goHome = () => {
         history.push('/');
     };
     useEffect(() => {
         fetchMovies().then(res => {
             setMovies(res.movies);
+            setGenres([].concat(['None'], res.genres));
         });
     }, []);
 
@@ -30,7 +32,7 @@ export const AppContainer = () => {
                 <Route
                     exact
                     path={'/'}
-                    render={() => <AppViewer movies={movies} />}
+                    render={() => <AppViewer movies={movies} genres={genres} />}
                 />
                 <Route path="/movie/:id" component={MovieDetails} />
                 <Footer />

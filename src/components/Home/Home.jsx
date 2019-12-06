@@ -5,9 +5,7 @@ import { Pagination } from '../Pagination';
 import { Filter } from '../Filter';
 import { Search } from '../Search';
 
-export const Home = props => {
-    const { genres, movies, onFilter, onSearch } = props;
-
+export const Home = ({ genres, movies, onFilter, onSearch }) => {
     return (
         <div>
             <div>
