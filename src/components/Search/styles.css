@@ -1,0 +1,19 @@
+.search-cross-icon {
+    
+}
+
+.search-cross-icon svg {
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+    fill: #3273dc;
+    cursor: pointer;
+    pointer-events: all;
+}
+
+.search-cross-icon-disabled svg {
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+    fill: lightgray;
+}

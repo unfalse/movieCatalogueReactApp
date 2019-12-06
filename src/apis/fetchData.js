@@ -1,4 +1,4 @@
-const FAKE_FETCH_DELAY = 5000;
+import { FAKE_FETCH_DELAY } from '../utils/const';
 
 const timeoutPromise = () => new Promise((resolve, reject) => {
   setTimeout(resolve, FAKE_FETCH_DELAY);

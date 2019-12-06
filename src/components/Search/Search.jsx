@@ -1,12 +1,16 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
+import { ReactComponent as CrossIcon } from '../../assets/delete.svg'; 
 import { getQueryParamsString, getQueryParams } from '../../utils/url';
+
+import './styles.css';
 
 const Search = ({ onSearch }) => {
     const history = useHistory();
     const location = useLocation();
     const { searchParam } = getQueryParams(location);
+    
     const onInputChange = e => {
         const searchValue = e.target.value;
         history.push(
@@ -17,6 +21,17 @@ const Search = ({ onSearch }) => {
         );
         onSearch();
     };
+
+    const onInputClear = e => {
+        history.push(
+            `${getQueryParamsString(
+                { newSearch: '', newPage: 1 },
+                location
+            )}`
+        );
+        onSearch();
+    }
+
     return (
         <div className="columns">
             <div className="column is-narrow">
@@ -30,13 +45,21 @@ const Search = ({ onSearch }) => {
             <div className="column">
                 <div className="field-body">
                     <div className="field">
-                        <div className="control">
+                        <div className="control has-icons-right">
                             <input
                                 className="input"
                                 type="text"
                                 onChange={onInputChange}
                                 value={searchParam}
                             />
+                            <span
+                                class={`icon is-right search-cross-icon${
+                                    searchParam ? '' : '-disabled'
+                                }`}
+                                onClick={onInputClear}
+                            >
+                                <CrossIcon />
+                            </span>
                         </div>
                     </div>
                 </div>
