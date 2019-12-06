@@ -3,10 +3,10 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import { getQueryParams, getQueryParamsString } from '../../utils/url';
 
-const Filter = ({ genres, onFilter }) => {
+const Filter = ({ genres = ['None'], onFilter }) => {
     let history = useHistory();
     const location = useLocation();
-    const { filterParam } = getQueryParams(location);
+    const { filterParam = 'None' } = getQueryParams(location);
 
     const onOptionClick = e => {
         const filterValue = e.target.value;
@@ -47,13 +47,13 @@ const Filter = ({ genres, onFilter }) => {
                         <div className="control">
                             <div className="select is-fullwidth">
                                 <select
+                                    defaultValue={filterParam}
                                     onChange={onOptionClick}
                                 >
                                     {
                                         genres.map((genre, genreIndex) => {
-                                            const selectedProp = (filterParam === genre) ? { selected: true } : {};
                                             return(
-                                                <option key={genreIndex} value={genre} {...selectedProp}>
+                                                <option key={genreIndex} value={genre}>
                                                     {genre}
                                                 </option>
                                             )
