@@ -1,4 +1,9 @@
-export const getQueryParams = location => {
+import * as H from 'history';
+import { getQueryParamsReturnType, getQueryParamsStringParams } from '../types';
+
+export const getQueryParams = (
+    location: H.Location
+): getQueryParamsReturnType => {
     const { search } = location;
     const params = new URLSearchParams(search);
     const filterParam = params.get('filter');
@@ -12,9 +17,9 @@ export const getQueryParams = location => {
 };
 
 export const getQueryParamsString = (
-    { newPage, newFilter, newSearch },
-    location
-) => {
+    { newPage, newFilter, newSearch }: getQueryParamsStringParams,
+    location: H.Location
+): string => {
     const { filterParam, searchParam, pageParam } = getQueryParams(location);
     return `?page=${newPage === undefined ? pageParam : newPage}&filter=${
         newFilter === undefined ? filterParam : newFilter

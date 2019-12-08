@@ -9,19 +9,20 @@ import { Header } from '../Header';
 import { Footer } from '../Footer';
 
 import './bulma-styles.scss';
+import { Genre, RawMoviesData, Movie } from '../../types/movie';
 
 const history = createBrowserHistory();
 
-export const AppContainer = () => {
-    const [movies, setMovies] = useState([]);
-    const [genres, setGenres] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const resetAndGoHome = () => {
+export const AppContainer: React.FunctionComponent = () => {
+    const [movies, setMovies] = useState<Array<Movie>>([]);
+    const [genres, setGenres] = useState<Array<Genre>>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const resetAndGoHome = (): void => {
         history.push('/');
         window.location.reload(true);
     };
     useEffect(() => {
-        fetchMovies().then(res => {
+        fetchMovies().then((res: RawMoviesData) => {
             setMovies(res.movies);
             setGenres([].concat(['None'], res.genres));
             setLoading(false);
