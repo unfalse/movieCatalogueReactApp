@@ -1,25 +1,27 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import { useLocation } from 'react-router-dom';
+import * as H from 'history';
 
 import { Home } from '../Home';
 import { getQueryParams } from '../../utils/url';
-import {ITEMS_PER_PAGE} from '../../utils/const';
+import { ITEMS_PER_PAGE } from '../../utils/const';
+import { Movie, PaginatedMovies, Genre } from '../../types';
 
 // Returns an array of movies divided by pages
-const preparePagination = items => {
+const preparePagination = (items: Array<Movie>): PaginatedMovies => {
     const pagesCount = Math.floor(items.length / ITEMS_PER_PAGE);
-    let pagedMovies = [];
+    let pagedMovies:PaginatedMovies = [];
     let pageNumber = 0,
         currentPagePosition = 0;
     while (pageNumber <= pagesCount) {
         if (items.length - currentPagePosition > 0) {
-            const moviesData = items.slice(
+            const moviesData: Array<Movie> = items.slice(
                 currentPagePosition,
                 currentPagePosition + ITEMS_PER_PAGE
             );
             pagedMovies.push({
                 pageNumber,
-                moviesData
+                moviesData,
             });
         }
         pageNumber++;
@@ -28,10 +30,13 @@ const preparePagination = items => {
     return pagedMovies;
 };
 
-const applyFilter = (items, filterParam = 'None') => {
-    let filteredItems = [];
+const applyFilter = (
+    items: Array<Movie>,
+    filterParam = 'None'
+): Array<Movie> => {
+    let filteredItems: Array<Movie> = [];
     if (filterParam === 'None') return items;
-    items.forEach(item => {
+    items.forEach((item: Movie) => {
         if (!item.genres) console.log(item);
         if (item.genres.indexOf(filterParam) >= 0) {
             filteredItems.push(item);
@@ -40,28 +45,35 @@ const applyFilter = (items, filterParam = 'None') => {
     return filteredItems;
 };
 
-const applySearch = (items, searchParam) => {
+const applySearch = (
+    items: Array<Movie>,
+    searchParam: string
+): Array<Movie> => {
     const result = items.filter(
         item => item.title.toLowerCase().indexOf(searchParam.toLowerCase()) >= 0
     );
     return result;
 };
 
-const prepareData = (items, location) => {
+const prepareData = (items: Array<Movie>, location: H.Location): PaginatedMovies => {
     const { filterParam, searchParam } = getQueryParams(location);
     const paginatedMovies = preparePagination(
         applySearch(applyFilter(items, filterParam), searchParam)
     );
-    return {
-        paginatedMovies
-    };
+    return paginatedMovies;
 };
 
-export const AppViewer = ({movies, genres, loading}) => {
-    const [filterParamFromQuery, setFilterParam] = useState('None');
-    const [searchParamFromQuery, setSearchParam] = useState('');
+interface Props {
+    movies: Array<Movie>;
+    genres: Array<Genre>;
+    loading: boolean;
+}
+
+export const AppViewer: React.FunctionComponent<Props> = ({ movies, genres, loading }: Props) => {
+    const [filterParamFromQuery, setFilterParam] = useState<string>('None');
+    const [searchParamFromQuery, setSearchParam] = useState<string>('');
     const location = useLocation();
-    const { paginatedMovies } = prepareData(movies, location);
+    const paginatedMovies = prepareData(movies, location);
 
     const onFilter = () => {
         const { filterParam } = getQueryParams(location);
