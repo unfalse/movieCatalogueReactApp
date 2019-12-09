@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import ContentLoader from 'react-content-loader';
 
-const MyLoader = () => (
+const MyLoader: FunctionComponent = () => (
     <ContentLoader
         height={70}
         width={400}

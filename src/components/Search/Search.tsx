@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { FunctionComponent, ChangeEvent } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import { ReactComponent as CrossIcon } from '../../assets/delete.svg'; 
+import { ReactComponent as CrossIcon } from '../../assets/delete.svg';
 import { getQueryParamsString, getQueryParams } from '../../utils/url';
 
 import './styles.css';
 
-const Search = ({ onSearch }) => {
+interface Props {
+    onSearch(): void;
+}
+
+const Search: FunctionComponent<Props> = ({ onSearch }) => {
     const history = useHistory();
     const location = useLocation();
     const { searchParam } = getQueryParams(location);
-    
-    const onInputChange = e => {
+
+    const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const searchValue = e.target.value;
         history.push(
             `${getQueryParamsString(
@@ -22,15 +26,12 @@ const Search = ({ onSearch }) => {
         onSearch();
     };
 
-    const onInputClear = e => {
+    const onInputClear = (e: React.MouseEvent<HTMLSpanElement>) => {
         history.push(
-            `${getQueryParamsString(
-                { newSearch: '', newPage: 1 },
-                location
-            )}`
+            `${getQueryParamsString({ newSearch: '', newPage: 1 }, location)}`
         );
         onSearch();
-    }
+    };
 
     return (
         <div className="columns">
@@ -53,7 +54,7 @@ const Search = ({ onSearch }) => {
                                 value={searchParam}
                             />
                             <span
-                                class={`icon is-right search-cross-icon${
+                                className={`icon is-right search-cross-icon${
                                     searchParam ? '' : '-disabled'
                                 }`}
                                 onClick={onInputClear}

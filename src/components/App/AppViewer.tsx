@@ -10,7 +10,7 @@ import { Movie, PaginatedMovies, Genre } from '../../types';
 // Returns an array of movies divided by pages
 const preparePagination = (items: Array<Movie>): PaginatedMovies => {
     const pagesCount = Math.floor(items.length / ITEMS_PER_PAGE);
-    let pagedMovies:PaginatedMovies = [];
+    let pagedMovies: PaginatedMovies = [];
     let pageNumber = 0,
         currentPagePosition = 0;
     while (pageNumber <= pagesCount) {
