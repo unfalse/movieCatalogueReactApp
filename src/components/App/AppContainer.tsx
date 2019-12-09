@@ -7,9 +7,9 @@ import { fetchMovies } from '../../apis';
 import { MovieDetails } from '../MovieDetails';
 import { Header } from '../Header';
 import { Footer } from '../Footer';
+import { Genre, RawMoviesData, Movie } from '../../types/movie';
 
 import './bulma-styles.scss';
-import { Genre, RawMoviesData, Movie } from '../../types/movie';
 
 const history = createBrowserHistory();
 
@@ -22,16 +22,18 @@ export const AppContainer: React.FunctionComponent = () => {
         window.location.reload(true);
     };
     useEffect(() => {
-        fetchMovies().then((res: RawMoviesData) => {
+        async function scopedFetchMovies() {
+            const res: RawMoviesData = await fetchMovies();
             setMovies(res.movies);
-            setGenres([].concat(['None'], res.genres));
+            setGenres(['None', ...res.genres]);
             setLoading(false);
-        });
+        }
+        scopedFetchMovies();
     }, []);
 
     return (
         <div className="container">
-            <Router history={history}>
+            <Router>
                 <Header onClick={resetAndGoHome} />
                 <Route
                     exact

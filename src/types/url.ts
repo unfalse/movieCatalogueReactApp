@@ -5,7 +5,7 @@ export interface getQueryParamsReturnType {
 }
 
 export interface getQueryParamsStringParams {
-    newPage: string;
-    newFilter: string;
-    newSearch: string;
+    newPage: number;
+    newFilter?: string;
+    newSearch?: string;
 }

@@ -1,17 +1,33 @@
-import React from 'react';
+import React, { FunctionComponent, ComponentType } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { getQueryParamsString, getQueryParams } from '../../utils/url';
+import { PaginatedMovies, Movie } from '../../types';
 
 import './styles.css';
 
-export const Pagination = ({ movies = [], WrappedComponent, loading }) => {
+interface WrappedComponentProps {
+    movies: Array<Movie>;
+    loading: boolean;
+}
+
+interface Props {
+    movies: PaginatedMovies;
+    WrappedComponent: ComponentType<WrappedComponentProps>;
+    loading: boolean;
+}
+
+export const Pagination: FunctionComponent<Props> = ({
+    movies = [],
+    WrappedComponent,
+    loading,
+}) => {
     let history = useHistory();
     const location = useLocation();
     const pageNum = Number(getQueryParams(location).pageParam) || 1;
     const pagesCount = movies.length;
 
-    const gotoPage = pageNumber => {
+    const gotoPage = (pageNumber: number): void => {
         const newParams = `${getQueryParamsString(
             { newPage: pageNumber },
             location
@@ -107,16 +123,15 @@ export const Pagination = ({ movies = [], WrappedComponent, loading }) => {
         );
     };
 
-    const moviesData =
-        movies.length > 0 &&
-        (pageNum - 1 >= 0 && movies[0].moviesData.length > 0)
+    const moviesData: Array<Movie> =
+        movies.length > 0 && pageNum - 1 >= 0 && movies[0].moviesData.length > 0
             ? movies[pageNum - 1].moviesData
             : [];
 
     return (
         <div className="pagination-container">
             <PaginationControls />
-            <WrappedComponent movies={moviesData} loading={loading}/>
+            <WrappedComponent movies={moviesData} loading={loading} />
             <PaginationControls />
         </div>
     );

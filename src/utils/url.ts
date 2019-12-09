@@ -1,4 +1,5 @@
 import * as H from 'history';
+
 import { getQueryParamsReturnType, getQueryParamsStringParams } from '../types';
 
 export const getQueryParams = (
