@@ -17,6 +17,7 @@ export const AppContainer: React.FunctionComponent = () => {
     const [movies, setMovies] = useState<Array<Movie>>([]);
     const [genres, setGenres] = useState<Array<Genre>>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string>('');
     const resetAndGoHome = (): void => {
         history.push('/');
         window.location.reload(true);
@@ -24,9 +25,13 @@ export const AppContainer: React.FunctionComponent = () => {
     useEffect(() => {
         async function scopedFetchMovies() {
             const res: RawMoviesData = await fetchMovies();
-            setMovies(res.movies);
-            setGenres(['None', ...res.genres]);
-            setLoading(false);
+            if (!res.error) {
+                setMovies(res.movies);
+                setGenres(['None', ...res.genres]);
+                setLoading(false);
+            } else {
+                setError(res.error);
+            }
         }
         scopedFetchMovies();
     }, []);
@@ -43,6 +48,7 @@ export const AppContainer: React.FunctionComponent = () => {
                             movies={movies}
                             genres={genres}
                             loading={loading}
+                            error={error}
                         />
                     )}
                 />

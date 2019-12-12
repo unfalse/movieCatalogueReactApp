@@ -67,9 +67,10 @@ interface Props {
     movies: Array<Movie>;
     genres: Array<Genre>;
     loading: boolean;
+    error?: string;
 }
 
-export const AppViewer: React.FunctionComponent<Props> = ({ movies, genres, loading }: Props) => {
+export const AppViewer: React.FunctionComponent<Props> = ({ movies, genres, loading, error }: Props) => {
     const [filterParamFromQuery, setFilterParam] = useState<string>('None');
     const [searchParamFromQuery, setSearchParam] = useState<string>('');
     const location = useLocation();
@@ -86,12 +87,21 @@ export const AppViewer: React.FunctionComponent<Props> = ({ movies, genres, load
     };
 
     return (
-        <Home
-            genres={genres}
-            movies={paginatedMovies}
-            onFilter={onFilter}
-            onSearch={onSearch}
-            loading={loading}
-        />
+        <div>
+            {error && (
+                <div className="is-italic subtitle has-text-centered">
+                    {error}
+                </div>
+            )}
+            {!error && (
+                <Home
+                    genres={genres}
+                    movies={paginatedMovies}
+                    onFilter={onFilter}
+                    onSearch={onSearch}
+                    loading={loading}
+                />
+            )}
+        </div>
     );
 };

@@ -10,6 +10,11 @@ export const fetchMovies = async (): Promise<RawMoviesData> => {
   try {
     await timeoutPromise();
     res = await fetch('/db.json');
+    if (res.status === 404) {
+      return {
+        error: '404: db.json not found!'
+      } as RawMoviesData;
+    }
     res = res.json();
   }
   catch (e) {

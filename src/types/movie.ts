@@ -1,6 +1,7 @@
 export interface RawMoviesData {
     genres: Array<Genre>;
     movies: Array<Movie>;
+    error?: string;
 }
 
 export interface Movie {
