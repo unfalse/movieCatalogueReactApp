@@ -4,5 +4,8 @@
 	"rules": {
 		"notab": "off",
 		"semi": "off"
+	},
+	"globals": {
+		"__REDUX_DEVTOOLS_EXTENSION_COMPOSE__": false
 	}
 }
