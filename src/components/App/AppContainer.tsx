@@ -18,7 +18,7 @@ const mapStateToProps = (state: ReduxState): StateProps => {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): DispatchProps => ({
-    fetchMovies: () => dispatch(fetchMoviesAction()),
+    fetchMovies: (filterParam: string, searchParam: string) => dispatch(fetchMoviesAction(filterParam, searchParam)),
     onFilter: () => dispatch(filterAction()),
     onSearch: () => dispatch(searchAction())
 });

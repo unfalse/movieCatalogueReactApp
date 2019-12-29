@@ -4,6 +4,8 @@ import { ReduxState, ReduxAction, MovieCatalogueReducerResult, ReduxActionsList 
 const defaultState: ReduxState = {
     movies: [],
     genres: [],
+    filterParam: '',
+    searchParam: '',
     isLoading: false,
     error: ''
 };
