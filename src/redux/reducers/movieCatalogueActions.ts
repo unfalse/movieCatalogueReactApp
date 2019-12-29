@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 
 import { fetchMovies } from '../../apis/fetchData';
 import { RawMoviesData, Movie, Genre } from '../../types/movie';
-import { ReduxActions, ReduxActionSetMoviesPayload } from '../../types/redux';
+import { ReduxActions } from '../../types/redux';
 
 const ACTIONS: ReduxActions = {
     FETCH_MOVIES: 'FETCH_MOVIES',
@@ -25,9 +25,12 @@ const fetchMoviesAction = (filterParam: string, searchParam: string) => async (d
     dispatch(setMoviesAction(res.movies));
     dispatch(setGenresAction(res.genres));
     dispatch(setIsLoadingAction(false));
+    // to handle url params
+    dispatch(filterAction(filterParam));
+    dispatch(searchAction(searchParam));
 }
 
-const setMoviesAction = (movies: ReduxActionSetMoviesPayload) =>
+const setMoviesAction = (movies: Array<Movie>) =>
     _createAction(ACTIONS.SET_MOVIES, movies);
 
 const setGenresAction = (genres: Array<Genre>) =>
@@ -36,10 +39,10 @@ const setGenresAction = (genres: Array<Genre>) =>
 const setIsLoadingAction = (loadingState: boolean) =>
     _createAction(ACTIONS.IS_LOADING, loadingState);
 
-const filterAction = () =>
-    _createAction(ACTIONS.FILTER)
+const filterAction = (filterParam: string) =>
+    _createAction(ACTIONS.FILTER, filterParam)
 
-const searchAction = () =>
-    _createAction(ACTIONS.SEARCH);
+const searchAction = (searchParam: string) =>
+    _createAction(ACTIONS.SEARCH, searchParam);
 
 export { ACTIONS, fetchMoviesAction, setMoviesAction, setGenresAction, setIsLoadingAction, filterAction, searchAction };

@@ -16,10 +16,3 @@ export interface Movie {
 }
 
 export type Genre = string;
-
-export interface MoviePage {
-    pageNumber: number;
-    moviesData: Array<Movie>;
-}
-
-export type PaginatedMovies = Array<MoviePage>;

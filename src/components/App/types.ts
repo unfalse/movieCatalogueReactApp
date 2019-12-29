@@ -1,15 +1,15 @@
-import { PaginatedMovies, Genre } from "../../types";
+import { Genre, Movie } from "../../types";
 
 export interface StateProps {
-    paginatedMovies: PaginatedMovies;
+    movies: Array<Movie>;
     genres: Array<Genre>;
     isLoading: boolean;
 }
 
 export interface DispatchProps {
     fetchMovies(filterParam: string, searchParam: string): void;
-    onFilter(): void;
-    onSearch(): void;
+    onFilter(filterParam: string): void;
+    onSearch(searchParam: string): void;
 }
 
 export interface Props extends StateProps, DispatchProps {};

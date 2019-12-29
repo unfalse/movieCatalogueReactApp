@@ -1,8 +1,8 @@
 import { Action } from 'redux';
-import { Movie, Genre, PaginatedMovies } from "./movie"
+import { Movie, Genre } from "./movie"
 
 export type ReduxState = {
-    movies: Array<Movie> | PaginatedMovies,
+    movies: Array<Movie>,
     genres: Array<Genre>,
     filterParam: string,
     searchParam: string,
@@ -11,11 +11,11 @@ export type ReduxState = {
 }
 
 export type ReduxAction = {
-    type: ReduxActionsList,
+    type: ActionsList,
     payload?: any
 }
 
-export type ReduxActionsList =
+export type ActionsList =
     'FETCH_MOVIES' |
     'FETCH_MOVIES_ERROR' |
     'IS_LOADING' |
@@ -24,15 +24,20 @@ export type ReduxActionsList =
     'FILTER' |
     'SEARCH';
 
-export type ReduxActions = { [k in ReduxActionsList]: string };
+export type ReduxActions = { [k in ActionsList]: string };
 
-export type MovieCatalogueReducerResult = { [k in ReduxActionsList]: ReduxState };
+export type MovieCatalogueReducerResult = { [k in ActionsList]: ReduxState };
 
 // Redux middlewares
 
-export type ReduxActionSetMoviesPayload = Array<Movie> | PaginatedMovies;
+interface MovieAction extends Action {
+    type: ActionsList
+}
 
-export interface ReduxActionSetMovies extends Action {
-    type: ReduxActionsList,
-    payload: ReduxActionSetMoviesPayload
+export interface ActionSetMovies extends MovieAction {
+    payload: Array<Movie>
 };
+
+export interface ActionFilter extends MovieAction {
+    payload: string
+}

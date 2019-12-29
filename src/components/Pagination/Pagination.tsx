@@ -2,9 +2,10 @@ import React, { FunctionComponent, ComponentType } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { getQueryParamsString, getQueryParams } from '../../utils/url';
-import { PaginatedMovies, Movie } from '../../types';
+import { Movie } from '../../types';
 
 import './styles.css';
+import { ITEMS_PER_PAGE } from '../../utils/const';
 
 interface WrappedComponentProps {
     movies: Array<Movie>;
@@ -12,7 +13,7 @@ interface WrappedComponentProps {
 }
 
 interface Props {
-    movies: PaginatedMovies;
+    movies: Array<Movie>;
     WrappedComponent: ComponentType<WrappedComponentProps>;
     loading: boolean;
 }
@@ -25,7 +26,7 @@ export const Pagination: FunctionComponent<Props> = ({
     let history = useHistory();
     const location = useLocation();
     const pageNum = Number(getQueryParams(location).pageParam) || 1;
-    const pagesCount = movies.length;
+    const pagesCount = Math.round(movies.length / ITEMS_PER_PAGE);
 
     const gotoPage = (pageNumber: number): void => {
         const newParams = `${getQueryParamsString(
@@ -124,8 +125,10 @@ export const Pagination: FunctionComponent<Props> = ({
     };
 
     const moviesData: Array<Movie> =
-        movies.length > 0 && pageNum - 1 >= 0 && movies[0].moviesData.length > 0
-            ? movies[pageNum - 1].moviesData
+        movies.length > 0 && pageNum - 1 >= 0
+            ? movies.slice(
+                (pageNum - 1) * ITEMS_PER_PAGE,
+                ((pageNum - 1) * ITEMS_PER_PAGE) + ITEMS_PER_PAGE)
             : [];
 
     return (
