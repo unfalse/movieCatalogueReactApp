@@ -1,4 +1,4 @@
-import { compose, createStore, applyMiddleware } from 'redux';
+import { compose, createStore, applyMiddleware, Middleware } from 'redux';
 import thunk from 'redux-thunk';
 import logger from "redux-logger";
 
@@ -16,6 +16,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store: any = createStore(
     movieCatalogueReducer,
     composeEnhancers(
+        // @ts-ignore
         applyMiddleware(thunk, preparePagination, logger)
     ));
 

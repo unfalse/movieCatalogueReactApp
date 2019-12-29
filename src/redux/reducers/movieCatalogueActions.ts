@@ -19,7 +19,7 @@ const _createAction = <T>(type: string, payload?: T) => ({
 })
 
 // TODO: https://stackoverflow.com/questions/54844839/typescript-how-to-type-the-dispatch-in-redux
-const fetchMoviesAction = () => async (dispatch: Dispatch<any>) => {
+const fetchMoviesAction = (filterParam: string, searchParam: string) => async (dispatch: Dispatch<any>) => {
     dispatch(setIsLoadingAction(true));
     const res: RawMoviesData = await fetchMovies();
     dispatch(setMoviesAction(res.movies));

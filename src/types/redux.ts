@@ -1,8 +1,11 @@
+import { Action } from 'redux';
 import { Movie, Genre, PaginatedMovies } from "./movie"
 
 export type ReduxState = {
     movies: Array<Movie> | PaginatedMovies,
     genres: Array<Genre>,
+    filterParam: string,
+    searchParam: string,
     isLoading: boolean,
     error: string
 }
@@ -29,7 +32,7 @@ export type MovieCatalogueReducerResult = { [k in ReduxActionsList]: ReduxState 
 
 export type ReduxActionSetMoviesPayload = Array<Movie> | PaginatedMovies;
 
-export type ReduxActionSetMovies = {
+export interface ReduxActionSetMovies extends Action {
     type: ReduxActionsList,
     payload: ReduxActionSetMoviesPayload
 };

@@ -5,6 +5,8 @@ import { Pagination } from '../Pagination';
 import { Filter } from '../Filter';
 import { Search } from '../Search';
 import { Props } from './types';
+import { getQueryParams } from '../../utils/url';
+import { useLocation } from 'react-router-dom';
 
 const AppViewer: React.FunctionComponent<Props> = ({
     paginatedMovies,
@@ -14,6 +16,7 @@ const AppViewer: React.FunctionComponent<Props> = ({
     onFilter,
     onSearch
 }: Props) => {
+    const location = useLocation();
     useEffect(() => {
         // async function scopedFetchMovies() {
         //     const res: RawMoviesData = await fetchMovies();
@@ -22,7 +25,8 @@ const AppViewer: React.FunctionComponent<Props> = ({
         //     setLoading(false);
         // }
         // scopedFetchMovies();
-        fetchMovies();
+        const { filterParam, searchParam } = getQueryParams(location);
+        fetchMovies(filterParam, searchParam);
     }, []);
     return (
         <div>

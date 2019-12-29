@@ -7,7 +7,7 @@ export interface StateProps {
 }
 
 export interface DispatchProps {
-    fetchMovies(): void;
+    fetchMovies(filterParam: string, searchParam: string): void;
     onFilter(): void;
     onSearch(): void;
 }
