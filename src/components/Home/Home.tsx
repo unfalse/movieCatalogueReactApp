@@ -4,11 +4,11 @@ import MovieList from '../MovieList';
 import { Pagination } from '../Pagination';
 import { Filter } from '../Filter';
 import { Search } from '../Search';
-import { Genre, PaginatedMovies } from '../../types';
+import { Genre, Movie } from '../../types';
 
 interface Props {
     genres: Array<Genre>;
-    movies: PaginatedMovies;
+    movies: Array<Movie>;
     onFilter(): void;
     onSearch(): void;
     loading: boolean;

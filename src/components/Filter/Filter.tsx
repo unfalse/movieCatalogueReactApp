@@ -6,10 +6,13 @@ import { Genre } from '../../types';
 
 interface Props {
     genres: Array<Genre>;
-    onFilter(): void;
+    onFilter(filterParam: string): void;
 }
 
-const Filter: React.FunctionComponent<Props> = ({ genres = ['None'], onFilter }) => {
+const Filter: React.FunctionComponent<Props> = ({
+    genres = ['None'],
+    onFilter,
+}) => {
     let history = useHistory();
     const location = useLocation();
     const { filterParam = 'None' } = getQueryParams(location);
@@ -22,8 +25,21 @@ const Filter: React.FunctionComponent<Props> = ({ genres = ['None'], onFilter })
                 location
             )}`
         );
-        onFilter();
+        onFilter(filterValue);
     };
+
+    const selectOptions = [
+        <option key={0} value="">
+            None
+        </option>,
+        ...genres.map((genre, genreIndex) => {
+            return (
+                <option key={genreIndex + 1} value={genre}>
+                    {genre}
+                </option>
+            );
+        }),
+    ];
 
     return (
         <div className="columns">
@@ -53,19 +69,10 @@ const Filter: React.FunctionComponent<Props> = ({ genres = ['None'], onFilter })
                         <div className="control">
                             <div className="select is-fullwidth">
                                 <select
-                                    defaultValue={filterParam}
+                                    value={filterParam}
                                     onChange={onOptionClick}
                                 >
-                                    {genres.map((genre, genreIndex) => {
-                                        return (
-                                            <option
-                                                key={genreIndex}
-                                                value={genre}
-                                            >
-                                                {genre}
-                                            </option>
-                                        );
-                                    })}
+                                    {selectOptions}
                                 </select>
                             </div>
                         </div>

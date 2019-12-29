@@ -1,6 +1,5 @@
 import React, { useEffect, useState, FunctionComponent } from 'react';
 import { match, RouteComponentProps } from 'react-router';
-import * as H from 'history';
 
 import { fetchMovie } from '../../apis';
 import { ImgFallback } from '../ImgFallback';

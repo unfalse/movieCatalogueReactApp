@@ -7,7 +7,7 @@ import { getQueryParamsString, getQueryParams } from '../../utils/url';
 import './styles.css';
 
 interface Props {
-    onSearch(): void;
+    onSearch(searchParam: string): void;
 }
 
 const Search: FunctionComponent<Props> = ({ onSearch }) => {
@@ -23,14 +23,14 @@ const Search: FunctionComponent<Props> = ({ onSearch }) => {
                 location
             )}`
         );
-        onSearch();
+        onSearch(searchValue);
     };
 
     const onInputClear = (e: React.MouseEvent<HTMLSpanElement>) => {
         history.push(
             `${getQueryParamsString({ newSearch: '', newPage: 1 }, location)}`
         );
-        onSearch();
+        onSearch('');
     };
 
     return (

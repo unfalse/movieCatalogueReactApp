@@ -1,5 +1,5 @@
 import { ACTIONS } from "./movieCatalogueActions"
-import { ReduxState, ReduxAction, MovieCatalogueReducerResult, ReduxActionsList } from "../../types/redux";
+import { ReduxState, ReduxAction, MovieCatalogueReducerResult } from "../../types/redux";
 
 const defaultState: ReduxState = {
     movies: [],
@@ -12,13 +12,17 @@ const defaultState: ReduxState = {
 
 const movieCatalogueReducer = (state: ReduxState = defaultState, { type, payload }: ReduxAction): ReduxState | undefined => {
     const actionMap: Partial<MovieCatalogueReducerResult> = {
-        // FETCH_MOVIES: {
-        //     ...state,
-        //     movies: payload
-        // },
         FETCH_MOVIES_ERROR: {
             ...state,
             error: payload
+        },
+        FILTER: {
+            ...state,
+            filterParam: payload
+        },
+        SEARCH: {
+            ...state,
+            searchParam: payload
         },
         IS_LOADING: {
             ...state,
