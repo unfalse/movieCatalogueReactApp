@@ -47,8 +47,8 @@ const MovieDetails: FunctionComponent<Props> = ({ match, history }) => {
             <div className="movie-details center">
                 <div className="title">{title}</div>
                 <div className="movie-details__genres">
-                    {genres.map((g, i) => (
-                        <span className="tag is-info" key={i}>
+                    {genres.map((g) => (
+                        <span className="tag is-info" key={g}>
                             {g}
                         </span>
                     ))}

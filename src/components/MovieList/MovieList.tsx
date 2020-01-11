@@ -56,8 +56,8 @@ export const MovieList: FunctionComponent<Props> = ({ movies = [], history, load
                             {year}
                         </div>
                         <div className="movie-list__short-info-genres">
-                            {genres.map((g, i) => (
-                                <span key={i} className="tag is-info">{g}</span>
+                            {genres.map((g: string) => (
+                                <span key={g} className="tag is-info">{g}</span>
                             ))}
                         </div>
                     </div>
@@ -83,7 +83,7 @@ export const MovieList: FunctionComponent<Props> = ({ movies = [], history, load
                 <div className="is-italic subtitle has-text-centered">
                     {loading ? (
                         <div>
-                            {Array(ITEMS_PER_PAGE).fill(0).map((v, i) => (<MyLoader key={i} />))}
+                            {Array(ITEMS_PER_PAGE).fill(0).map((v: number) => (<MyLoader key={v} />))}
                         </div>
                     ) : (
                         `Nothing found on query ${searchParam}. Try to change the query.`
