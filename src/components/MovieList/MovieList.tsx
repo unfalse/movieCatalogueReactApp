@@ -83,7 +83,7 @@ export const MovieList: FunctionComponent<Props> = ({ movies = [], history, load
                 <div className="is-italic subtitle has-text-centered">
                     {loading ? (
                         <div>
-                            {Array(ITEMS_PER_PAGE).fill(0).map((v: number) => (<MyLoader key={v} />))}
+                            {Array(ITEMS_PER_PAGE).fill(0).map((item: number, itemIndex: number) => (<MyLoader key={`myloader_${itemIndex}`} />))}
                         </div>
                     ) : (
                         `Nothing found on query ${searchParam}. Try to change the query.`
@@ -91,7 +91,7 @@ export const MovieList: FunctionComponent<Props> = ({ movies = [], history, load
                 </div>
             )}
             {movies.map(m => (
-                <MovieShortInfo movie={m} key={m.id} />
+                <MovieShortInfo movie={m} key={`movieShortInfo_${m.id}`} />
             ))}
         </div>
     );
