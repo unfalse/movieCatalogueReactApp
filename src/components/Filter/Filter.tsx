@@ -29,12 +29,12 @@ const Filter: React.FunctionComponent<Props> = ({
     };
 
     const selectOptions = [
-        <option key={0} value="">
+        <option key={'None'} value="">
             None
         </option>,
-        ...genres.map((genre, genreIndex) => {
+        ...genres.map((genre: string, genreIndex: number) => {
             return (
-                <option key={genreIndex + 1} value={genre}>
+                <option key={`${genre}${genreIndex}`} value={genre}>
                     {genre}
                 </option>
             );
