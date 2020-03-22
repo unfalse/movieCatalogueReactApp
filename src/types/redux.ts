@@ -1,4 +1,3 @@
-import { Action } from 'redux';
 import { Movie, Genre } from "./movie"
 
 export type ReduxState = {
@@ -30,7 +29,7 @@ export type MovieCatalogueReducerResult = { [k in ActionsList]: ReduxState };
 
 // Redux middlewares
 
-interface MovieAction extends Action {
+interface MovieAction {
     type: ActionsList
 }
 

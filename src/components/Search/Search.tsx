@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ChangeEvent } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import { ReactComponent as CrossIcon } from '../../assets/delete.svg';
+// import CrossIcon from '../../assets/delete.svg';
 import { getQueryParamsString, getQueryParams } from '../../utils/url';
 
 import './styles.css';
@@ -56,10 +56,10 @@ const Search: FunctionComponent<Props> = ({ onSearch }) => {
                             <span
                                 className={`icon is-right search-cross-icon${
                                     searchParam ? '' : '-disabled'
-                                }`}
+                                    }`}
                                 onClick={onInputClear}
                             >
-                                <CrossIcon />
+                                {/* <CrossIcon /> */}
                             </span>
                         </div>
                     </div>

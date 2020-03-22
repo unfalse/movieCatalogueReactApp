@@ -17,9 +17,7 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "noEmit": true,
+    "moduleResolution": "classic",
     "isolatedModules": true
   },
   "include": [
