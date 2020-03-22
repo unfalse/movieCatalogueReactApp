@@ -53,18 +53,26 @@ module.exports = {
                 ],
             },
             {
-                test: /\.(png|jpg|jpeg|gif|svg|pdf)$/,
-                loader: "url-loader",
-                options: {
-                    limit: 10000
-                }
+                test: /\.svg$/,
+                use: ['@svgr/webpack?-svgo,+titleProp,+ref![path]']
             },
+            // {
+            //     test: /\.(png|jpg|jpeg|gif|pdf)$/i,
+            //     use: [
+            //         {
+            //             loader: "url-loader",
+            //             options: {
+            //                 limit: 10000
+            //             }
+            //         }
+            //     ]
+            // },
             {
-                test: /\.(png|jpg|jpeg|gif|svg|ttf|woff2)/,
+                test: /\.(png|jpg|jpeg|gif|ttf|woff2)/,
                 // exclude: /(node_modules|bower_components)/,
                 loader: "file-loader",
                 options: {
-                    name: "assets/[name].[ext]"
+                    name: "src/assets/[name].[ext]"
                 }
             }
         ]
@@ -82,7 +90,7 @@ module.exports = {
         // ]),
         new webpack.HotModuleReplacementPlugin(),
         // new HtmlWebpackPlugin(),
-        new HtmlWebpackPlugin({ 
+        new HtmlWebpackPlugin({
             template: path.join(publicPath, 'index.html')
         })
     ]
