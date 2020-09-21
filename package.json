@@ -34,6 +34,8 @@
     "not op_mini all"
   ],
   "dependencies": {
+    "mobx": "^5.15.1",
+    "mobx-react": "^6.1.4",
     "react": "16.11.0",
     "react-content-loader": "^4.3.2",
     "react-dom": "16.11.0",
