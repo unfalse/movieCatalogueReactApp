@@ -3,4 +3,5 @@ node_modules
 *.swo
 package-lock.json
 build
+dist
 .netlify
